@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FAQActivity">
+
+    <TextView
+        android:id="@+id/top1TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="50sp"
+        android:text="1위"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:background="@drawable/editmain"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/top2TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="180sp"
+        android:text="2위"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:background="@drawable/editmain"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/top3TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="320sp"
+        android:text="3위"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:background="@drawable/editmain"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/top1Edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="70sp"
+        android:ems="10"
+        android:hint="자주묻는 질문 1"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/top2Edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="210sp"
+        android:ems="10"
+        android:hint="자주묻는 질문 2"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/top3Edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="350sp"
+        android:ems="10"
+        android:hint="자주묻는 질문 3"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/fButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="310sp"
+        android:layout_marginTop="110sp"
+        android:text="적용" />
+
+    <Button
+        android:id="@+id/fButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="310sp"
+        android:layout_marginTop="250sp"
+        android:text="적용" />
+
+    <Button
+        android:id="@+id/fButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="310sp"
+        android:layout_marginTop="390sp"
+        android:text="적용" />
+
+</RelativeLayout>

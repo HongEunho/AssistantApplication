@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfessorActivity">
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="260sp"
+        android:layout_marginTop="100sp"
+        android:text="조회" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="260sp"
+        android:layout_marginTop="300sp"
+        android:text="수정" />
+
+    <EditText
+        android:id="@+id/profEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="100sp"
+        android:layout_marginRight="50sp"
+        android:ems="10"
+        android:hint="교수님 성함"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/offEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="240sp"
+        android:layout_marginRight="50sp"
+        android:ems="10"
+        android:hint="연구실 위치"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/phoneEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="300sp"
+        android:layout_marginRight="50sp"
+        android:ems="10"
+        android:hint="연구실 전화번호"
+        android:inputType="textPersonName" />
+
+</RelativeLayout>
