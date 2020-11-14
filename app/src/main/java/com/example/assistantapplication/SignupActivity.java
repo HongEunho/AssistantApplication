@@ -2,9 +2,11 @@ package com.example.assistantapplication;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -31,12 +33,12 @@ public class SignupActivity extends AppCompatActivity {
     private Button valButton;
     private Button regButton;
     private Button depButton;
-    private EditText idEdit;
-    private EditText nameEdit;
-    private EditText passEdit;
-    private EditText passChkEdit;
-    private EditText phoneNumEdit;
-    private EditText emailEdit;
+    private AppCompatEditText idEdit;
+    private AppCompatEditText nameEdit;
+    private AppCompatEditText passEdit;
+    private AppCompatEditText passChkEdit;
+    private AppCompatEditText phoneNumEdit;
+    private AppCompatEditText emailEdit;
 
     int dep;
     Boolean check = false;
@@ -57,12 +59,12 @@ public class SignupActivity extends AppCompatActivity {
         regButton = findViewById(R.id.regButton);
         depButton = findViewById(R.id.depButton);
 
-        idEdit = findViewById(R.id.userId);
-        nameEdit = findViewById(R.id.username);
-        passEdit = findViewById(R.id.password);
-        passChkEdit = findViewById(R.id.passCheck);
-        phoneNumEdit = findViewById(R.id.phoneNum);
-        emailEdit = findViewById(R.id.email);
+        idEdit = (AppCompatEditText)findViewById(R.id.userId2);
+        nameEdit = findViewById(R.id.username2);
+        passEdit = findViewById(R.id.password2);
+        passChkEdit = findViewById(R.id.passCheck2);
+        phoneNumEdit = findViewById(R.id.phoneNum2);
+        emailEdit = findViewById(R.id.email2);
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
         regButton.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +74,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 if(check == false)
                 {
-                    Toast.makeText(getApplicationContext(), "이미 존재하는 아이디 입니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "아이디를 확인해주세요", Toast.LENGTH_SHORT).show();
                 }
 
                 else if(!passEdit.getText().toString().equals(passChkEdit.getText().toString()))
@@ -133,6 +135,7 @@ public class SignupActivity extends AppCompatActivity {
                     AlertDialog.Builder dia = new AlertDialog.Builder(SignupActivity.this);
                     dia.setTitle("중복 확인");
                     dia.setMessage("이미 존재하는 아이디 입니다");
+                    valButton.setTextColor(Color.parseColor("#FF0000"));
                     dia.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -145,8 +148,10 @@ public class SignupActivity extends AppCompatActivity {
                 {
                     check = true;
                     AlertDialog.Builder dia = new AlertDialog.Builder(SignupActivity.this);
-                    dia.setTitle("중복 확인");
+                    dia.setTitle("사용가능");
                     dia.setMessage("사용 가능한 아이디 입니다");
+                    valButton.setTextColor(Color.parseColor("#47C83E"));
+
                     dia.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

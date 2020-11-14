@@ -61,7 +61,16 @@
         android:layout_marginRight="50sp"
         android:background="#AC808F"
         android:text="교수님 연구실 위치" />
-
+    <Button
+        android:id="@+id/noticeBtn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="30sp"
+        android:layout_marginRight="50sp"
+        android:background="#AC808F"
+        android:text="학과 공지" />
     <Button
         android:id="@+id/FAQBtn"
         style="@style/Widget.AppCompat.Button.Colored"

@@ -9,4 +9,5 @@
     <color name="sejongColor">#a31432</color>
     <color name="positiveColor">#4374D9</color>
     <color name="welcomeColor">#689302</color>
+    <color name="warningColor">#FFE20A</color>
 </resources>

@@ -27,4 +27,12 @@ public class ServerVariable extends Application {
                 .setMessage("환영합니다!")
                 .show();
     }
+
+    public void LoginFail(Activity a){
+        CookieBar.build(a)
+                .setCookiePosition(CookieBar.BOTTOM)
+                .setBackgroundColor(R.color.welcomeColor)
+                .setMessage("아이디, 비밀번호를 확인하세요")
+                .show();
+    }
 }

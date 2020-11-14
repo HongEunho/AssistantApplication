@@ -6,75 +6,108 @@
     android:layout_height="match_parent"
     tools:context=".SignupActivity">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userId"
         android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="ID"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPersonName"
+            android:id="@+id/userId2"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username"
         android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Name"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/userId"
         app:layout_constraintStart_toStartOf="@+id/userId"
-        app:layout_constraintTop_toBottomOf="@+id/userId" />
-    <EditText
+        app:layout_constraintTop_toBottomOf="@+id/userId">
+        <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPersonName"
+            android:id="@+id/username2"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password"
         android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/username"
         app:layout_constraintStart_toStartOf="@+id/username"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/username">
+        <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPassword"
+            android:id="@+id/password2"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passCheck"
         android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="PasswordCheck"
-        android:inputType="textPassword"
+
         app:layout_constraintEnd_toEndOf="@+id/password"
         app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/password" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPassword"
+            android:id="@+id/passCheck2"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phoneNum"
         android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="phone"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/passCheck"
         app:layout_constraintStart_toStartOf="@+id/passCheck"
-        app:layout_constraintTop_toBottomOf="@+id/passCheck" />
-    <EditText
+        app:layout_constraintTop_toBottomOf="@+id/passCheck">
+        <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPersonName"
+            android:id="@+id/phoneNum2"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email"
         android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="mail"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/phoneNum"
         app:layout_constraintStart_toStartOf="@+id/phoneNum"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNum" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneNum">
+        <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPersonName"
+            android:id="@+id/email2"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
@@ -93,6 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_marginTop="28dp"
+        android:background="@drawable/background_button"
         android:text="중복확인"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.058"

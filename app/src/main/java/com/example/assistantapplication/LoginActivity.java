@@ -1,6 +1,8 @@
 package com.example.assistantapplication;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.views.ButtonRectangle;
+import com.gc.materialdesign.widgets.ProgressDialog;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,12 +37,19 @@ import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button btn_login;
-    private Button btn_register;
-    private EditText idEdit;
-    private EditText passEdit;
+    private ButtonRectangle btn_login;
+    private ButtonRectangle btn_register;
 
+    private long backKeyPressedTime = 0;
+    private Toast toast;
 
+    ProgressBar loading;
+
+    TextInputLayout idE;
+
+    private AppCompatEditText idEdit;
+    private AppCompatEditText passEdit;
+    Activity a;
     String id;
     String password;
 
@@ -45,20 +60,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        setTitle("Sejong HelpBot");
         btn_login = findViewById(R.id.btn_login);
         btn_register = findViewById(R.id.btn_register);
+        loading = findViewById(R.id.indeterminateBar);
+        loading.setVisibility(View.INVISIBLE);
+        a = LoginActivity.this;
 
-        idEdit = findViewById(R.id.idEdit);
-        passEdit = findViewById(R.id.passEdit);
+        idEdit = (AppCompatEditText)findViewById(R.id.idEdit2);
+        passEdit = (AppCompatEditText)findViewById(R.id.passEdit2);
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-
+                loading.setVisibility(View.VISIBLE);
                 new JSONTask2().execute(ser+"/auth/login");
             }
         });
@@ -68,11 +85,28 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent2 = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(intent2);
-                finish();
+                //finish();
             }
         });
 
     }
+
+    @Override
+    public void onBackPressed(){
+        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+            finish();
+            toast.cancel();
+
+        }
+    }
+
     public class JSONTask2 extends AsyncTask<String, String, String> {
 
         @Override
@@ -149,50 +183,52 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             System.out.println("확"+result);
-            try {
-                JSONObject jo = jsonParsing2(result);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            //System.out.println("확"+jo.toString());
-            //JSONObject jo2 = jo.optJSONObject("user");
-            //System.out.println("확인"+jo2.toString());
-            if(result != null)
+            if(result == null)
             {
-                if(dep.equals("0")){
-                    Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if(dep.equals("1")){
-                    Intent intent = new Intent(LoginActivity.this, SoftwareActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if(dep.equals("2")){
-                    Intent intent = new Intent(LoginActivity.this, SecurityActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if(dep.equals("3")){
-                    Intent intent = new Intent(LoginActivity.this, DataScienceActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if(dep.equals("4")){
-                    Intent intent = new Intent(LoginActivity.this, IntellActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if(dep.equals("5")){
-                    Intent intent = new Intent(LoginActivity.this, IdeaActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                ((ServerVariable)getApplicationContext()).LoginFail(a);
+                loading.setVisibility(View.INVISIBLE);
             }
-            else{
-                Toast.makeText(getApplicationContext(), "아이디 비밀번호를 다시 확인하세요", Toast.LENGTH_SHORT).show();
+            else {
+                try {
+                    JSONObject jo = jsonParsing2(result);
+                } catch (JSONException e) {
+                    System.out.println("콱" + e);
+                    e.printStackTrace();
+                }
+
+                //System.out.println("확"+jo.toString());
+                //JSONObject jo2 = jo.optJSONObject("user");
+                //System.out.println("확인"+jo2.toString());
+                if (result != null) {
+                    if (dep.equals("0")) {
+                        Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
+                        startActivity(intent);
+
+                        finish();
+                    } else if (dep.equals("1")) {
+                        Intent intent = new Intent(LoginActivity.this, SoftwareActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (dep.equals("2")) {
+                        Intent intent = new Intent(LoginActivity.this, SecurityActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (dep.equals("3")) {
+                        Intent intent = new Intent(LoginActivity.this, DataScienceActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (dep.equals("4")) {
+                        Intent intent = new Intent(LoginActivity.this, IntellActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (dep.equals("5")) {
+                        Intent intent = new Intent(LoginActivity.this, IdeaActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "아이디 비밀번호를 다시 확인하세요", Toast.LENGTH_SHORT).show();
+                }
             }
             //offEdit.setText(""+officelink);
             //phoneEdit.setText(""+phonelink);

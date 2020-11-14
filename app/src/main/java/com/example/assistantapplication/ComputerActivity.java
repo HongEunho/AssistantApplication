@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class ComputerActivity extends AppCompatActivity {
 
@@ -14,8 +15,11 @@ public class ComputerActivity extends AppCompatActivity {
     private Button curriBtn;
     private Button roomBtn;
     private Button officeBtn;
+    private Button noticeBtn;
     private Button FAQBtn;
-
+    private Button knowledgeBtn;
+    private long backKeyPressedTime = 0;
+    private Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +30,9 @@ public class ComputerActivity extends AppCompatActivity {
         curriBtn = findViewById(R.id.curriBtn);
         roomBtn = findViewById(R.id.roomBtn);
         officeBtn = findViewById(R.id.officeBtn);
+        noticeBtn = findViewById(R.id.noticeBtn);
         FAQBtn = findViewById(R.id.FAQBtn);
+        knowledgeBtn = findViewById(R.id.knowledgeBtn);
 
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +63,14 @@ public class ComputerActivity extends AppCompatActivity {
                 startActivity(intent4);
             }
         });
+        noticeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent6 = new Intent(ComputerActivity.this, NoticeActivity.class);
+                intent6.putExtra("department","컴퓨터공학과");
+                startActivity(intent6);
+            }
+        });
         FAQBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,5 +78,28 @@ public class ComputerActivity extends AppCompatActivity {
                 startActivity(intent5);
             }
         });
+        knowledgeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent7 = new Intent(ComputerActivity.this, KnowledgeActivity.class);
+                startActivity(intent7);
+            }
+        });
+
+    }
+    @Override
+    public void onBackPressed(){
+        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+            finish();
+            toast.cancel();
+
+        }
     }
 }

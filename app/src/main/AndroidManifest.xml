@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".KnowledgeActivity"></activity>
+        <activity android:name=".NoticeActivity" />
+        <activity android:name=".TestActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignupActivity" />
         <activity
@@ -48,7 +50,6 @@
         <activity android:name=".ComputerStatusActivity" />
         <activity android:name=".ComputerActivity" />
         <activity android:name=".MainActivity" />
-
     </application>
 
 </manifest>

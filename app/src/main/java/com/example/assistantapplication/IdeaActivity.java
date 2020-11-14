@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class IdeaActivity extends AppCompatActivity {
 
@@ -14,7 +15,9 @@ public class IdeaActivity extends AppCompatActivity {
     private Button roomBtn;
     private Button officeBtn;
     private Button FAQBtn;
-
+    private Button noticeBtn;
+    private long backKeyPressedTime = 0;
+    private Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,7 @@ public class IdeaActivity extends AppCompatActivity {
         roomBtn = findViewById(R.id.roomBtn);
         officeBtn = findViewById(R.id.officeBtn);
         FAQBtn = findViewById(R.id.FAQBtn);
-
+        noticeBtn = findViewById(R.id.noticeBtn);
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,5 +65,28 @@ public class IdeaActivity extends AppCompatActivity {
                 startActivity(intent5);
             }
         });
+        noticeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent6 = new Intent(IdeaActivity.this, NoticeActivity.class);
+                intent6.putExtra("department","창의소프트학부");
+                startActivity(intent6);
+            }
+        });
+    }
+    @Override
+    public void onBackPressed(){
+        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+            finish();
+            toast.cancel();
+
+        }
     }
 }
