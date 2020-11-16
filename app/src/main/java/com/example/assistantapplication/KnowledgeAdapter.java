@@ -22,10 +22,14 @@ public class KnowledgeAdapter extends RecyclerView.Adapter<KnowledgeAdapter.Know
         protected TextView question;
         protected TextView answer;
 
+
+
         public KnowledgeViewHolder(@NonNull View itemView) {
             super(itemView);
             this.question = itemView.findViewById(R.id.question);
             this.answer = itemView.findViewById(R.id.answer);
+
+
         }
     }
 
@@ -44,11 +48,7 @@ public class KnowledgeAdapter extends RecyclerView.Adapter<KnowledgeAdapter.Know
 
     @Override
     public void onBindViewHolder(@NonNull KnowledgeViewHolder holder, int position) {
-        holder.question.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-        holder.answer.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
 
-        holder.question.setGravity(Gravity.CENTER);
-        holder.answer.setGravity(Gravity.CENTER);
 
         holder.question.setText(mList.get(position).getQuestion());
         holder.answer.setText(mList.get(position).getAnswer());

@@ -34,5 +34,5 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:background="@drawable/editmain"
         android:textColor="#FFFFFF"
-        android:text="창의소프트학부 교과과정 링크" />
+        android:text="디자인이노베이션 교과과정 링크" />
 </RelativeLayout>

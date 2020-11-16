@@ -35,4 +35,12 @@ public class ServerVariable extends Application {
                 .setMessage("아이디, 비밀번호를 확인하세요")
                 .show();
     }
+
+    public void insertSuccess(Activity a){
+        CookieBar.build(a)
+                .setCookiePosition(CookieBar.BOTTOM)
+                .setBackgroundColor(R.color.welcomeColor)
+                .setMessage("추가 되었습니다.")
+                .show();
+    }
 }

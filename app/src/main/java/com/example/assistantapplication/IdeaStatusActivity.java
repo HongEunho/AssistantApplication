@@ -40,7 +40,7 @@ public class IdeaStatusActivity extends AppCompatActivity {
 
         final Activity a = IdeaStatusActivity.this;
 
-        setTitle("창의소프트학부 조교관리 시스템");
+        setTitle("디자인이노베이션 조교관리 시스템");
         majorEdit = findViewById(R.id.majorEdit);
         statusEdit = findViewById(R.id.statusEdit);
         commentEdit = findViewById(R.id.commentEdit);
@@ -48,11 +48,11 @@ public class IdeaStatusActivity extends AppCompatActivity {
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
-        new JSONTask().execute(ser+"/status/창의소프트학부");
+        new JSONTask().execute(ser+"/status/디자인이노베이션");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask2().execute(ser+"/status/창의소프트학부");
+                new JSONTask2().execute(ser+"/status/디자인이노베이션");
                 ((ServerVariable)getApplicationContext()).Cookie(a);
             }
         });

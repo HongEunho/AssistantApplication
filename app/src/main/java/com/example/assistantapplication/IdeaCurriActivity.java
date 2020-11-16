@@ -37,17 +37,17 @@ public class IdeaCurriActivity extends AppCompatActivity {
 
         final Activity a = IdeaCurriActivity.this;
 
-        setTitle("창의소프트학부 조교관리 시스템");
+        setTitle("디자인이노베이션 조교관리 시스템");
         linkEdit = findViewById(R.id.linkEdit2);
         button = findViewById(R.id.button);
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
-        new JSONTask().execute(ser+"/curriculum/창의소프트학부");
+        new JSONTask().execute(ser+"/curriculum/디자인이노베이션");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask2().execute(ser+"/curriculum/창의소프트학부");
+                new JSONTask2().execute(ser+"/curriculum/디자인이노베이션");
                 ((ServerVariable)getApplicationContext()).Cookie(a);
             }
         });

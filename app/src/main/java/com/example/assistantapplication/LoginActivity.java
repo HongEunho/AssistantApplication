@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public JSONObject jsonParsing2(String json) throws JSONException {
         JSONObject jo = new JSONObject(json);
-        JSONObject userjo = (JSONObject) jo.get("user");
+        JSONObject userjo = (JSONObject) jo.get("result");
         dep = userjo.get("department").toString();
         System.out.println("칼"+dep);
         return jo;

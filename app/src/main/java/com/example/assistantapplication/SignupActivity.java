@@ -81,9 +81,14 @@ public class SignupActivity extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(),"비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show();
                 }
+                else if(phoneNumEdit.getText().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(),"휴대폰 번호를 입력하세요",Toast.LENGTH_SHORT).show();
+                }
                 else if(!str.substring(str.lastIndexOf("@")+1).equals("sejong.ac.kr"))
                 {
-                    Toast.makeText(getApplicationContext(),"세종대학교 이메일이 아닙니다", Toast.LENGTH_SHORT).show();
+                    if(str.equals("")) Toast.makeText(getApplicationContext(),"이메일을 입력하세요",Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(getApplicationContext(),"세종대학교 이메일이 아닙니다", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -101,7 +106,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(SignupActivity.this);
                 dlg.setTitle("학과를 선택하세요");
-                final String[] versionArray = new String[] {"컴퓨터공학과", "소프트웨어학과", "정보보호학과", "데이터사이언스학과", "지능기전공학부", "창의소프트학부"};
+                final String[] versionArray = new String[] {"컴퓨터공학과", "소프트웨어학과", "정보보호학과", "데이터사이언스학과", "지능기전공학부", "디자인이노베이션","만화애니메이션텍"};
                 //아이콘 만들면 여기에 생성
                 dlg.setSingleChoiceItems(versionArray, 0, new DialogInterface.OnClickListener() {
                     @Override
@@ -244,7 +249,7 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
+            System.out.println("확인용"+result);
             //offEdit.setText(""+officelink);
             //phoneEdit.setText(""+phonelink);
         }

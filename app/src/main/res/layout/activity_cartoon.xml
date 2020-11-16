@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".CartoonActivity">
 
     <TextView
         android:id="@+id/selTV"
@@ -14,74 +14,84 @@
         android:layout_marginTop="100sp"
         android:layout_marginBottom="20sp"
         android:gravity="center"
-        android:text="학과를 선택하세요"
+        android:text="수정할 항목을 선택하세요"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/computerbtn"
+        android:id="@+id/staBtn"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="30sp"
         android:layout_marginRight="50sp"
-        android:background="#836C6C"
-        android:text="컴퓨터공학과" />
+        android:background="#AC808F"
+        android:text="부재중 전환" />
 
     <Button
-        android:id="@+id/softwarebtn"
+        android:id="@+id/curriBtn"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="30sp"
         android:layout_marginRight="50sp"
-        android:background="#836C6C"
-        android:text="소프트웨어학과" />
+        android:background="#AC808F"
+        android:text="교과과정" />
 
     <Button
-        android:id="@+id/securitybtn"
+        android:id="@+id/roomBtn"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="30sp"
         android:layout_marginRight="50sp"
-        android:background="#836C6C"
-        android:text="정보보호학과" />
+        android:background="#AC808F"
+        android:text="강의실 시간표" />
 
     <Button
-        android:id="@+id/databtn"
+        android:id="@+id/officeBtn"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="30sp"
         android:layout_marginRight="50sp"
-        android:background="#836C6C"
-        android:text="데이터사이언스학과" />
+        android:background="#AC808F"
+        android:text="교수님 연구실 위치" />
 
     <Button
-        android:id="@+id/intellbtn"
+        android:id="@+id/noticeBtn"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="30sp"
         android:layout_marginRight="50sp"
-        android:background="#836C6C"
-        android:text="지능기전공학부" />
+        android:background="#AC808F"
+        android:text="학과 공지" />
 
     <Button
-        android:id="@+id/ideabtn"
+        android:id="@+id/FAQBtn"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="30sp"
         android:layout_marginRight="50sp"
-        android:background="#836C6C"
-        android:text="디자인이노베이션" />
+        android:background="#AC808F"
+        android:text="자주묻는질문 TOP3" />
 
+    <Button
+        android:id="@+id/knowledgeBtn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="30sp"
+        android:layout_marginRight="50sp"
+        android:background="#AC808F"
+        android:text="질문 추가 및 수정" />
 </LinearLayout>
