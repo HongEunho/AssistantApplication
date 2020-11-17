@@ -42,16 +42,6 @@
         android:background="@drawable/editmain"
         android:textColor="#FFFFFF"/>
 
-    <EditText
-        android:id="@+id/statusEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="35sp"
-        android:layout_marginTop="180sp"
-        android:layout_marginRight="40sp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
 
     <TextView
         android:id="@+id/comment"
@@ -88,43 +78,21 @@
         android:id="@+id/infoText0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20sp"
-        android:layout_marginTop="400sp"
-        android:text="상태 : 0(근무중) "
+        android:layout_marginLeft="70sp"
+        android:layout_marginTop="450sp"
+        android:textStyle="bold"
+        android:text="장기 부재시 특이사항을 꼭 작성해주세요 "
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
-        android:id="@+id/infoText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="56sp"
-        android:layout_marginTop="420sp"
-        android:text="1(부재중)"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <TextView
-        android:id="@+id/infoText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="56sp"
-        android:layout_marginTop="440sp"
-        android:text="2(장기 부재중)"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="56sp"
-        android:layout_marginTop="460sp"
-        android:text="2로 설정시 반드시 특이사항을 작성해주세요"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <RadioGroup
         android:id="@+id/workingGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="35sp"
+        android:layout_marginTop="200sp"
+        android:layout_marginRight="40sp">
 
         <RadioButton
             android:id="@+id/workBtn"
@@ -136,12 +104,14 @@
             android:id="@+id/notworkBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
             android:text="부재중" />
 
         <RadioButton
             android:id="@+id/longnotBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
             android:text="장기 부재중" />
     </RadioGroup>
 

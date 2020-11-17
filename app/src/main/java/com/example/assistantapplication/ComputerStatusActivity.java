@@ -1,5 +1,6 @@
 package com.example.assistantapplication;
 
+import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -60,6 +61,21 @@ public class ComputerStatusActivity extends AppCompatActivity {
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
         new JSONTask().execute(ser+"/status/컴퓨터공학과");
+
+        RadioGroup.OnCheckedChangeListener radioGroupButtonChangeListener = new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                if(checkedId == R.id.workBtn)
+                    staint = 0;
+                else if(checkedId == R.id.notworkBtn)
+                    staint = 1;
+                else if(checkedId == R.id.longnotBtn)
+                    staint = 2;
+                else
+                    staint = 0;
+            }
+        };
+        workingGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,8 +148,13 @@ public class ComputerStatusActivity extends AppCompatActivity {
             }
             majorEdit.setText(dep);
             //RadioButton으로 status나타내기
-            
-            statusEdit.setText(sta);
+            staint = Integer.parseInt(sta);
+            if(staint == 0) { workBtn.setChecked(true); notworkBtn.setChecked(false); longnotBtn.setChecked(false);      }
+            else if(staint == 1) { workBtn.setChecked(false); notworkBtn.setChecked(true); longnotBtn.setChecked(false);      }
+            else if(staint == 2) { workBtn.setChecked(false); notworkBtn.setChecked(false); longnotBtn.setChecked(true);      }
+            else { workBtn.setChecked(true); notworkBtn.setChecked(false); longnotBtn.setChecked(false);      }
+
+            //statusEdit.setText(sta);
             commentEdit.setText(comment);
         }
 
@@ -144,7 +165,7 @@ public class ComputerStatusActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... urls) {
             try {
-                staint = Integer.parseInt(statusEdit.getText().toString());
+                //staint = Integer.parseInt(statusEdit.getText().toString());
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("status", staint);
                 jsonObject.accumulate("comment", commentEdit.getText().toString());
@@ -208,7 +229,8 @@ public class ComputerStatusActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            statusEdit.setText(""+staint);
+
+            //statusEdit.setText(""+staint);
         }
     }
 
