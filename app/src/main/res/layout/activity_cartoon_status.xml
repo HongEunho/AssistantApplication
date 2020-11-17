@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".ComputerStatusActivity">
+    tools:context=".CartoonStatusActivity">
 
     <TextView
         android:id="@+id/major"
@@ -119,30 +119,5 @@
         android:layout_marginTop="460sp"
         android:text="2로 설정시 반드시 특이사항을 작성해주세요"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <RadioGroup
-        android:id="@+id/workingGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/workBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="근무중" />
-
-        <RadioButton
-            android:id="@+id/notworkBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="부재중" />
-
-        <RadioButton
-            android:id="@+id/longnotBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="장기 부재중" />
-    </RadioGroup>
 
 </RelativeLayout>

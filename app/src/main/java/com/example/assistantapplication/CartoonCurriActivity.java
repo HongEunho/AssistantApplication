@@ -3,14 +3,12 @@ package com.example.assistantapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,48 +21,36 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class ComputerStatusActivity extends AppCompatActivity {
+public class CartoonCurriActivity extends AppCompatActivity {
 
-    private EditText majorEdit;
-    private EditText statusEdit;
-    private EditText commentEdit;
-    private RadioButton workBtn;
-    private RadioButton notworkBtn;
-    private RadioButton longnotBtn;
-    private RadioGroup workingGroup;
+    private EditText linkEdit;
     private Button button;
-    int staint;
+    String link2;
+
+    public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_computer_status);
-
-        final Activity a = ComputerStatusActivity.this;
-
-        setTitle("컴퓨터공학과 조교관리 시스템");
-        majorEdit = findViewById(R.id.majorEdit);
-        statusEdit = findViewById(R.id.statusEdit);
-        commentEdit = findViewById(R.id.commentEdit);
-        workBtn = findViewById(R.id.workBtn);
-        notworkBtn = findViewById(R.id.notworkBtn);
-        longnotBtn = findViewById(R.id.longnotBtn);
-        workingGroup = findViewById(R.id.workingGroup);
+        setContentView(R.layout.activity_cartoon_curri);
+        mContext = this;
+        final Activity a = CartoonCurriActivity.this;
+        setTitle("만화애니메이션텍 조교관리 시스템");
+        linkEdit = findViewById(R.id.linkEdit2);
         button = findViewById(R.id.button);
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
-        new JSONTask().execute(ser+"/status/컴퓨터공학과");
-
+        new CartoonCurriActivity.JSONTask().execute(ser+"/curriculum/만화애니메이션텍");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask2().execute(ser+"/status/컴퓨터공학과");
+                new CartoonCurriActivity.JSONTask2().execute(ser+"/curriculum/만화애니메이션텍");
+                //Toast.makeText(getApplicationContext(),"수정 되었습니다",Toast.LENGTH_SHORT).show();
                 ((ServerVariable)getApplicationContext()).Cookie(a);
             }
         });
@@ -92,6 +78,7 @@ public class ComputerStatusActivity extends AppCompatActivity {
 
                 while ((line = reader.readLine()) != null) buffer.append(line);
 
+                //System.out.println(buffer.toString());
                 return buffer.toString();
 
             } catch (MalformedURLException e) {
@@ -114,40 +101,30 @@ public class ComputerStatusActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            //String id = jsonParsing(result);
             JSONObject jo = jsonParsing2(result);
-            //System.out.println("학과"+result);
-            String dep="";
-            String sta="";
-            String comment = "";
-            try {
-                dep += jo.getString("department");
-                sta += jo.getString("status");
+            String link="";
 
-                comment += jo.getString("comment");
-                if(comment.equals("null"))
-                    comment="없습니다";
+            try {
+                link += jo.getString("link");
+
+                if(link.equals("null"))
+                    link="수정 중입니다.";
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            majorEdit.setText(dep);
-            //RadioButton으로 status나타내기
-            
-            statusEdit.setText(sta);
-            commentEdit.setText(comment);
+            linkEdit.setText(link);
         }
 
     }
-
     public class JSONTask2 extends AsyncTask<String, String, String>{
 
         @Override
         protected String doInBackground(String... urls) {
             try {
-                staint = Integer.parseInt(statusEdit.getText().toString());
+                link2 = linkEdit.getText().toString();
+
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("status", staint);
-                jsonObject.accumulate("comment", commentEdit.getText().toString());
+                jsonObject.accumulate("link", link2);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -208,7 +185,7 @@ public class ComputerStatusActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            statusEdit.setText(""+staint);
+            linkEdit.setText(""+link2);
         }
     }
 

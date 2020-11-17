@@ -36,7 +36,7 @@ public class CartoonActivity extends AppCompatActivity {
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CartoonActivity.this,ComputerStatusActivity.class);
+                Intent intent = new Intent(CartoonActivity.this,CartoonStatusActivity.class);
                 startActivity(intent);
             }
         });
@@ -44,7 +44,7 @@ public class CartoonActivity extends AppCompatActivity {
         curriBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(CartoonActivity.this,ComputerCurriActivity.class);
+                Intent intent2 = new Intent(CartoonActivity.this,CartoonCurriActivity.class);
                 startActivity(intent2);
             }
         });
@@ -66,7 +66,7 @@ public class CartoonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent6 = new Intent(CartoonActivity.this, NoticeActivity.class);
-                intent6.putExtra("department","컴퓨터공학과");
+                intent6.putExtra("department","만화애니메이션텍");
                 startActivity(intent6);
             }
         });

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -225,6 +226,10 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, IdeaActivity.class);
                         startActivity(intent);
                         finish();
+                    }else if (dep.equals("6")) {
+                        Intent intent = new Intent(LoginActivity.this, CartoonActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "아이디 비밀번호를 다시 확인하세요", Toast.LENGTH_SHORT).show();
@@ -240,7 +245,14 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject jo = new JSONObject(json);
         JSONObject userjo = (JSONObject) jo.get("result");
         dep = userjo.get("department").toString();
+        //현재 id와 password는 edittext 그대로 가져오고 dep는 서버결과값에서 가져옴
         System.out.println("칼"+dep);
+        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("ID",id);
+        editor.putString("Password",password);
+        editor.putString("Department",dep);
+        editor.commit();
         return jo;
     }
 

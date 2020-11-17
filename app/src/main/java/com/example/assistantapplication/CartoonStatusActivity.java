@@ -8,9 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,48 +20,39 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class ComputerStatusActivity extends AppCompatActivity {
+public class CartoonStatusActivity extends AppCompatActivity {
 
     private EditText majorEdit;
     private EditText statusEdit;
     private EditText commentEdit;
-    private RadioButton workBtn;
-    private RadioButton notworkBtn;
-    private RadioButton longnotBtn;
-    private RadioGroup workingGroup;
     private Button button;
     int staint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_computer_status);
+        setContentView(R.layout.activity_cartoon_status);
 
-        final Activity a = ComputerStatusActivity.this;
+        final Activity a = CartoonStatusActivity.this;
 
-        setTitle("컴퓨터공학과 조교관리 시스템");
+        setTitle("만화애니메이션텍 조교관리 시스템");
         majorEdit = findViewById(R.id.majorEdit);
         statusEdit = findViewById(R.id.statusEdit);
         commentEdit = findViewById(R.id.commentEdit);
-        workBtn = findViewById(R.id.workBtn);
-        notworkBtn = findViewById(R.id.notworkBtn);
-        longnotBtn = findViewById(R.id.longnotBtn);
-        workingGroup = findViewById(R.id.workingGroup);
         button = findViewById(R.id.button);
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
-        new JSONTask().execute(ser+"/status/컴퓨터공학과");
+        new CartoonStatusActivity.JSONTask().execute(ser+"/status/만화애니메이션텍");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask2().execute(ser+"/status/컴퓨터공학과");
+                new CartoonStatusActivity.JSONTask2().execute(ser+"/status/만화애니메이션텍");
                 ((ServerVariable)getApplicationContext()).Cookie(a);
             }
         });
@@ -131,8 +119,6 @@ public class ComputerStatusActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             majorEdit.setText(dep);
-            //RadioButton으로 status나타내기
-            
             statusEdit.setText(sta);
             commentEdit.setText(comment);
         }

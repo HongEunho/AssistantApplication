@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CartoonActivity"></activity>
+        <activity android:name=".CartoonStatusActivity"></activity>
+        <activity android:name=".CartoonCurriActivity" />
+        <activity android:name=".CartoonActivity" />
         <activity android:name=".KnowledgeActivity" />
         <activity android:name=".NoticeActivity" />
         <activity android:name=".TestActivity" />
