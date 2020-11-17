@@ -26,6 +26,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ComputerCurriActivity extends AppCompatActivity {
 
@@ -34,6 +36,10 @@ public class ComputerCurriActivity extends AppCompatActivity {
     String link2;
 
     public static Context mContext;
+    public long now;
+    public Date mDate;
+    public SimpleDateFormat simpleDate;
+    public String formatDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,14 @@ public class ComputerCurriActivity extends AppCompatActivity {
         mContext = this;
         final Activity a = ComputerCurriActivity.this;
         setTitle("컴퓨터공학과 조교관리 시스템");
+
+        //현재 시간
+        now = System.currentTimeMillis();
+        mDate = new Date(now);
+        simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        formatDate = simpleDate.format(mDate);
+
+
         linkEdit = findViewById(R.id.linkEdit2);
         button = findViewById(R.id.button);
 

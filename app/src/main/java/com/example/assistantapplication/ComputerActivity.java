@@ -27,8 +27,9 @@ public class ComputerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_computer);
         setTitle("컴퓨터공학과 조교관리 시스템");
         SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
-        String tmp = preferences.getString("ID","0");
-        System.out.println("확인함"+tmp);
+        String curID = preferences.getString("ID","0");
+        String curName = preferences.getString("Name","0");
+        System.out.println("확인함"+curID);
         staBtn = findViewById(R.id.staBtn);
         curriBtn = findViewById(R.id.curriBtn);
         roomBtn = findViewById(R.id.roomBtn);

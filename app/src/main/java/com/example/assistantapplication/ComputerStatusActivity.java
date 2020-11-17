@@ -4,6 +4,8 @@ import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -28,18 +31,29 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ComputerStatusActivity extends AppCompatActivity {
 
+    private TextView comment;
+    private EditText commentEdit;
     private EditText majorEdit;
     private EditText statusEdit;
-    private EditText commentEdit;
+    private EditText positionEdit;
+    private EditText phoneNumEdit;
     private RadioButton workBtn;
     private RadioButton notworkBtn;
     private RadioButton longnotBtn;
     private RadioGroup workingGroup;
     private Button button;
     int staint;
+
+    public long now;
+    public Date mDate;
+    public SimpleDateFormat simpleDate;
+    public String formatDate;
+    String curName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +63,22 @@ public class ComputerStatusActivity extends AppCompatActivity {
         final Activity a = ComputerStatusActivity.this;
 
         setTitle("컴퓨터공학과 조교관리 시스템");
+
+        //현재 시간
+        now = System.currentTimeMillis();
+        mDate = new Date(now);
+        simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        formatDate = simpleDate.format(mDate);
+        //현재 로그인 정보
+        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+        String curID = preferences.getString("ID","0");
+        curName = preferences.getString("Name","0");
+
+        comment = findViewById(R.id.comment);
+        commentEdit = findViewById(R.id.commentEdit);
         majorEdit = findViewById(R.id.majorEdit);
+        positionEdit = findViewById(R.id.positionEdit);
+        phoneNumEdit = findViewById(R.id.officeNumEdit);
         statusEdit = findViewById(R.id.statusEdit);
         commentEdit = findViewById(R.id.commentEdit);
         workBtn = findViewById(R.id.workBtn);
@@ -57,6 +86,10 @@ public class ComputerStatusActivity extends AppCompatActivity {
         longnotBtn = findViewById(R.id.longnotBtn);
         workingGroup = findViewById(R.id.workingGroup);
         button = findViewById(R.id.button);
+
+        //기본적으로 comment는 숨기기
+        comment.setVisibility(View.GONE);
+        commentEdit.setVisibility(View.GONE);
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
@@ -66,13 +99,13 @@ public class ComputerStatusActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 if(checkedId == R.id.workBtn)
-                    staint = 0;
+                {   staint = 0; comment.setVisibility(View.GONE); commentEdit.setVisibility(View.GONE);}
                 else if(checkedId == R.id.notworkBtn)
-                    staint = 1;
+                {   staint = 1; comment.setVisibility(View.GONE); commentEdit.setVisibility(View.GONE);}
                 else if(checkedId == R.id.longnotBtn)
-                    staint = 2;
+                {   staint = 2; comment.setVisibility(View.VISIBLE);  commentEdit.setVisibility(View.VISIBLE); }
                 else
-                    staint = 0;
+                {   staint = 0; comment.setVisibility(View.GONE); commentEdit.setVisibility(View.GONE);}
             }
         };
         workingGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
@@ -133,12 +166,16 @@ public class ComputerStatusActivity extends AppCompatActivity {
             //String id = jsonParsing(result);
             JSONObject jo = jsonParsing2(result);
             //System.out.println("학과"+result);
+            String position="";
             String dep="";
             String sta="";
             String comment = "";
+            String phoneNum = "";
             try {
                 dep += jo.getString("department");
                 sta += jo.getString("status");
+                position += jo.getString("position");
+                phoneNum += jo.getString("phoneNumber");
 
                 comment += jo.getString("comment");
                 if(comment.equals("null"))
@@ -146,7 +183,7 @@ public class ComputerStatusActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            majorEdit.setText(dep);
+
             //RadioButton으로 status나타내기
             staint = Integer.parseInt(sta);
             if(staint == 0) { workBtn.setChecked(true); notworkBtn.setChecked(false); longnotBtn.setChecked(false);      }
@@ -155,7 +192,11 @@ public class ComputerStatusActivity extends AppCompatActivity {
             else { workBtn.setChecked(true); notworkBtn.setChecked(false); longnotBtn.setChecked(false);      }
 
             //statusEdit.setText(sta);
+            majorEdit.setText(dep);
             commentEdit.setText(comment);
+            positionEdit.setText(position);
+            phoneNumEdit.setText(phoneNum);
+
         }
 
     }
@@ -169,6 +210,10 @@ public class ComputerStatusActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("status", staint);
                 jsonObject.accumulate("comment", commentEdit.getText().toString());
+                jsonObject.accumulate("phoneNumber",phoneNumEdit.getText().toString());
+                jsonObject.accumulate("position",positionEdit.getText().toString());
+                jsonObject.accumulate("time",formatDate);
+                jsonObject.accumulate("modifier",curName);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
