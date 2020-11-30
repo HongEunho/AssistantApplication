@@ -17,6 +17,15 @@ import java.util.ArrayList;
 public class KnowledgeAdapter extends RecyclerView.Adapter<KnowledgeAdapter.KnowledgeViewHolder> {
 
     private ArrayList<Knowledge> mList;
+    private OnItemClickListener mListener = null;
+
+    public interface OnItemClickListener{
+        void onItemClick(View v, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mListener = listener;
+    }
 
     public class KnowledgeViewHolder extends RecyclerView.ViewHolder{
         protected TextView question;
@@ -29,7 +38,17 @@ public class KnowledgeAdapter extends RecyclerView.Adapter<KnowledgeAdapter.Know
             this.question = itemView.findViewById(R.id.question);
             this.answer = itemView.findViewById(R.id.answer);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
 
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mListener != null)
+                            mListener.onItemClick(v, position);
+                    }
+                }
+            });
         }
     }
 
@@ -49,7 +68,6 @@ public class KnowledgeAdapter extends RecyclerView.Adapter<KnowledgeAdapter.Know
     @Override
     public void onBindViewHolder(@NonNull KnowledgeViewHolder holder, int position) {
 
-
         holder.question.setText(mList.get(position).getQuestion());
         holder.answer.setText(mList.get(position).getAnswer());
     }
@@ -58,5 +76,9 @@ public class KnowledgeAdapter extends RecyclerView.Adapter<KnowledgeAdapter.Know
     @Override
     public int getItemCount() {
         return (null != mList ? mList.size() : 0);
+    }
+
+    public Knowledge getItem(int position){
+        return mList.get(position);
     }
 }

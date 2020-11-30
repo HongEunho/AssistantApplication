@@ -1,5 +1,6 @@
 package com.example.assistantapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -11,10 +12,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.Touch;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,6 +65,8 @@ public class KnowledgeActivity extends AppCompatActivity {
         question = new String[100]; answer = new String[100]; category1 = new String[100]; category2 = new String[100]; category3 = new String[100];
         category4 = new String[100]; landingUrl = new String[100]; imageinfo = new String[100];
 
+        new JSONTask().execute(ser+"/knowledgePlus");
+
         final RecyclerView mRecyclerView = findViewById(R.id.knowledge_recyclerview);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -68,12 +74,23 @@ public class KnowledgeActivity extends AppCompatActivity {
         mArrayList = new ArrayList<>();
 
         mAdapter = new KnowledgeAdapter(mArrayList);
+
+        mAdapter.setOnItemClickListener(new KnowledgeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Knowledge know = mArrayList.get(position);
+                System.out.println(know.getAnswer());
+            }
+        });
+
         mRecyclerView.setAdapter(mAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),mLinearLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        new JSONTask().execute(ser+"/knowledgePlus");
+
+
+
 
         Button insertButton = findViewById(R.id.btn_insert);
         insertButton.setOnClickListener(new View.OnClickListener() {
@@ -272,5 +289,9 @@ public class KnowledgeActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
         }
+    }
+
+    public interface OnItemClickListener{
+        void OnItemClick(View v, int pos);
     }
 }

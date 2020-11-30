@@ -1,17 +1,28 @@
 package com.example.assistantapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class ComputerActivity extends AppCompatActivity {
-
-
+    
     private Button staBtn;
     private Button curriBtn;
     private Button roomBtn;
@@ -21,23 +32,37 @@ public class ComputerActivity extends AppCompatActivity {
     private Button knowledgeBtn;
     private long backKeyPressedTime = 0;
     private Toast toast;
+    private Switch pushSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer);
-        setTitle("컴퓨터공학과 조교관리 시스템");
+
         SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
         String curID = preferences.getString("ID","0");
         String curName = preferences.getString("Name","0");
+
+        FirebaseMessaging.getInstance().subscribeToTopic("computer")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = getString(R.string.msg_subscribed);
+                        if (!task.isSuccessful()) {
+                            msg = getString(R.string.msg_subscribe_failed);
+                        }
+
+                    }
+                });
+
         System.out.println("확인함"+curID);
         staBtn = findViewById(R.id.staBtn);
-        curriBtn = findViewById(R.id.curriBtn);
         roomBtn = findViewById(R.id.roomBtn);
         officeBtn = findViewById(R.id.officeBtn);
         noticeBtn = findViewById(R.id.noticeBtn);
         FAQBtn = findViewById(R.id.FAQBtn);
         knowledgeBtn = findViewById(R.id.knowledgeBtn);
-
+        pushSwitch = findViewById(R.id.pushSwitch);
+        pushSwitch.setChecked(true);
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,13 +71,6 @@ public class ComputerActivity extends AppCompatActivity {
             }
         });
 
-        curriBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(ComputerActivity.this,ComputerCurriActivity.class);
-                startActivity(intent2);
-            }
-        });
         roomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +108,18 @@ public class ComputerActivity extends AppCompatActivity {
             }
         });
 
+        pushSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    FirebaseMessaging.getInstance().subscribeToTopic("computer");
+                }
+                else{
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("computer");
+                }
+            }
+        });
+
     }
     @Override
     public void onBackPressed(){
@@ -106,4 +136,7 @@ public class ComputerActivity extends AppCompatActivity {
 
         }
     }
+
+
+
 }

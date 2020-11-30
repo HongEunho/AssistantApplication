@@ -35,4 +35,5 @@
         android:layout_centerInParent="false"
         android:layout_marginTop="150sp"
         android:text="수정" />
+
 </RelativeLayout>

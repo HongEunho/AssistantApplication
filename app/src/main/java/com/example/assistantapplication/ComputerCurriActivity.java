@@ -47,7 +47,7 @@ public class ComputerCurriActivity extends AppCompatActivity {
         setContentView(R.layout.activity_computer_curri);
         mContext = this;
         final Activity a = ComputerCurriActivity.this;
-        setTitle("컴퓨터공학과 조교관리 시스템");
+
 
         //현재 시간
         now = System.currentTimeMillis();

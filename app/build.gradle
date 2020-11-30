@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -23,6 +24,7 @@ android {
 
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -33,6 +35,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'org.aviran.cookiebar2:cookiebar2:1.1.4'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation platform('com.google.firebase:firebase-bom:26.0.0')
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics'
 
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:2.0.24'
@@ -40,4 +45,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+
 }

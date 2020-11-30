@@ -1,97 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/sejongbackground"
     android:orientation="vertical"
     tools:context=".ComputerActivity">
 
-    <TextView
-        android:id="@+id/selTV"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/logoView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/logo"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/staBtn"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Switch
+        android:id="@+id/pushSwitch"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100sp"
-        android:layout_marginBottom="20sp"
-        android:gravity="center"
-        android:text="수정할 항목을 선택하세요"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="18sp" />
+        android:layout_marginTop="40dp"
+        android:text="푸쉬 알림  "
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="@id/staBtn" />
 
     <Button
         android:id="@+id/staBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginTop="30sp"
-        android:layout_marginRight="50sp"
-        android:background="#AC808F"
-        android:text="부재중 전환" />
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/buttonround"
+        android:text="학과 사무실 상태"
+        android:textColor="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logoView"/>
 
     <Button
         android:id="@+id/curriBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginTop="30sp"
-        android:layout_marginRight="50sp"
-        android:background="#AC808F"
-        android:text="교과과정" />
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintLeft_toLeftOf="@id/staBtn"
+        app:layout_constraintRight_toRightOf="@id/staBtn"
+        app:layout_constraintTop_toBottomOf="@id/staBtn"
+        android:background="@drawable/buttonround"
+        android:textColor="#FFFFFF"
+        android:text="학생들의 질문" />
 
     <Button
         android:id="@+id/roomBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginTop="30sp"
-        android:layout_marginRight="50sp"
-        android:background="#AC808F"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintLeft_toLeftOf="@id/curriBtn"
+        app:layout_constraintRight_toRightOf="@id/curriBtn"
+        app:layout_constraintTop_toBottomOf="@id/curriBtn"
+        android:background="@drawable/buttonround"
+        android:textColor="#FFFFFF"
         android:text="강의실 시간표" />
 
     <Button
         android:id="@+id/officeBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginTop="30sp"
-        android:layout_marginRight="50sp"
-        android:background="#AC808F"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintLeft_toLeftOf="@id/roomBtn"
+        app:layout_constraintRight_toRightOf="@id/roomBtn"
+        app:layout_constraintTop_toBottomOf="@id/roomBtn"
+        android:background="@drawable/buttonround"
+        android:textColor="#FFFFFF"
         android:text="교수님 연구실 위치" />
 
     <Button
         android:id="@+id/noticeBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginTop="30sp"
-        android:layout_marginRight="50sp"
-        android:background="#AC808F"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintLeft_toLeftOf="@id/officeBtn"
+        app:layout_constraintRight_toRightOf="@id/officeBtn"
+        app:layout_constraintTop_toBottomOf="@id/officeBtn"
+        android:background="@drawable/buttonround"
+        android:textColor="#FFFFFF"
         android:text="학과 공지" />
 
     <Button
         android:id="@+id/FAQBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginTop="30sp"
-        android:layout_marginRight="50sp"
-        android:background="#AC808F"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintLeft_toLeftOf="@id/noticeBtn"
+        app:layout_constraintRight_toRightOf="@id/noticeBtn"
+        app:layout_constraintTop_toBottomOf="@id/noticeBtn"
+        android:background="@drawable/buttonround"
+        android:textColor="#FFFFFF"
         android:text="자주묻는질문 TOP3" />
 
     <Button
         android:id="@+id/knowledgeBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginTop="30sp"
-        android:layout_marginRight="50sp"
-        android:background="#AC808F"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintLeft_toLeftOf="@id/FAQBtn"
+        app:layout_constraintRight_toRightOf="@id/FAQBtn"
+        app:layout_constraintTop_toBottomOf="@id/FAQBtn"
+        android:background="@drawable/buttonround"
+        android:textColor="#FFFFFF"
         android:text="질문 추가 및 수정" />
-</LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

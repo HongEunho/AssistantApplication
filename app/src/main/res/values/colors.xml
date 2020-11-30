@@ -7,6 +7,12 @@
     <color name="chatbotColor">#a31432</color>
     <color name="editColor">#CC0030</color>
     <color name="sejongColor">#a31432</color>
+    <color name="sejongbackground">#eeedeb</color>
+    <color name="sejongnavy">#1b2d43</color>
+
+    <color name="sejongYellow">#d1c145</color>
+    <color name="sejongOrange">#d08752</color>
+    <color name="sejongColor2">#c75643</color>
     <color name="positiveColor">#4374D9</color>
     <color name="welcomeColor">#689302</color>
     <color name="warningColor">#FFE20A</color>

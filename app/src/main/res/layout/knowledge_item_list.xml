@@ -18,4 +18,5 @@
         android:layout_height="wrap_content"
         android:text="답변"
         android:textSize="15sp" />
+
 </LinearLayout>

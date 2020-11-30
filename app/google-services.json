@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "981749654619",
+    "firebase_url": "https://sejongchatbot-1ec36.firebaseio.com",
+    "project_id": "sejongchatbot-1ec36",
+    "storage_bucket": "sejongchatbot-1ec36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981749654619:android:bd9715306ef2807978cb7e",
+        "android_client_info": {
+          "package_name": "com.example.assistantapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981749654619-7rva50463a1bbcat0aj7k0o8pqu54uf9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV5Jc73RWzArEEKB6zPli9_OpFvW2kg_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981749654619-7rva50463a1bbcat0aj7k0o8pqu54uf9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

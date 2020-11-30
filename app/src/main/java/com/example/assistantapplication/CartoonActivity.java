@@ -1,5 +1,6 @@
 package com.example.assistantapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class CartoonActivity extends AppCompatActivity {
     private Button staBtn;
@@ -22,9 +27,18 @@ public class CartoonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer);
-        setTitle("만화애니메이션텍 조교관리 시스템");
-        
 
+        FirebaseMessaging.getInstance().subscribeToTopic("cartoon")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = getString(R.string.msg_subscribed);
+                        if (!task.isSuccessful()) {
+                            msg = getString(R.string.msg_subscribe_failed);
+                        }
+
+                    }
+                });
         staBtn = findViewById(R.id.staBtn);
         curriBtn = findViewById(R.id.curriBtn);
         roomBtn = findViewById(R.id.roomBtn);

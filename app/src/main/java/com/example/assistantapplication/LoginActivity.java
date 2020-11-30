@@ -1,5 +1,6 @@
 package com.example.assistantapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -19,7 +20,10 @@ import android.widget.Toast;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.widgets.ProgressDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,12 +64,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         setTitle("Sejong HelpBot");
         btn_login = findViewById(R.id.btn_login);
         btn_register = findViewById(R.id.btn_register);
         loading = findViewById(R.id.indeterminateBar);
         loading.setVisibility(View.INVISIBLE);
         a = LoginActivity.this;
+
+
 
         idEdit = (AppCompatEditText)findViewById(R.id.idEdit2);
         passEdit = (AppCompatEditText)findViewById(R.id.passEdit2);
@@ -203,7 +210,6 @@ public class LoginActivity extends AppCompatActivity {
                     if (dep.equals("0")) {
                         Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
                         startActivity(intent);
-
                         finish();
                     } else if (dep.equals("1")) {
                         Intent intent = new Intent(LoginActivity.this, SoftwareActivity.class);
@@ -227,6 +233,11 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }else if (dep.equals("6")) {
                         Intent intent = new Intent(LoginActivity.this, CartoonActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if (dep.equals("7")){
+                        Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
                         startActivity(intent);
                         finish();
                     }

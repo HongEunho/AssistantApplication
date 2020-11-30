@@ -113,6 +113,7 @@ public class SignupActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         depButton.setText(versionArray[which]);
                         dep = which;
+                        System.out.println("학과확인"+dep);
                     }
                 });
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {

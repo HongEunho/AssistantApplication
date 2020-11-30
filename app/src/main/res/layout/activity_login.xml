@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/sejongbackground"
     tools:context=".LoginActivity">
 
 
@@ -37,7 +38,6 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="아이디"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -53,7 +53,7 @@
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:background="@color/sejongColor"
         android:text="로그인"
         app:layout_constraintEnd_toEndOf="@+id/passEdit"
@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/swbot2" />
+        app:srcCompat="@drawable/logo3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

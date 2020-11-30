@@ -1,12 +1,18 @@
 package com.example.assistantapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DataScienceActivity extends AppCompatActivity {
 
@@ -16,20 +22,38 @@ public class DataScienceActivity extends AppCompatActivity {
     private Button officeBtn;
     private Button FAQBtn;
     private Button noticeBtn;
+    private Button knowledgeBtn;
     private long backKeyPressedTime = 0;
     private Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_science);
-        setTitle("데이터사이언스학과 조교관리 시스템");
+        setContentView(R.layout.activity_computer);
 
+        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+        String curID = preferences.getString("ID","0");
+        String curName = preferences.getString("Name","0");
+
+        FirebaseMessaging.getInstance().subscribeToTopic("datascience")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = getString(R.string.msg_subscribed);
+                        if (!task.isSuccessful()) {
+                            msg = getString(R.string.msg_subscribe_failed);
+                        }
+
+                    }
+                });
+        System.out.println("확인함"+curID);
         staBtn = findViewById(R.id.staBtn);
         curriBtn = findViewById(R.id.curriBtn);
         roomBtn = findViewById(R.id.roomBtn);
         officeBtn = findViewById(R.id.officeBtn);
-        FAQBtn = findViewById(R.id.FAQBtn);
         noticeBtn = findViewById(R.id.noticeBtn);
+        FAQBtn = findViewById(R.id.FAQBtn);
+        knowledgeBtn = findViewById(R.id.knowledgeBtn);
+
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,13 +82,6 @@ public class DataScienceActivity extends AppCompatActivity {
                 startActivity(intent4);
             }
         });
-        FAQBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent5 = new Intent(DataScienceActivity.this, FAQActivity.class);
-                startActivity(intent5);
-            }
-        });
         noticeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +90,21 @@ public class DataScienceActivity extends AppCompatActivity {
                 startActivity(intent6);
             }
         });
+        FAQBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent5 = new Intent(DataScienceActivity.this, FAQActivity.class);
+                startActivity(intent5);
+            }
+        });
+        knowledgeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent7 = new Intent(DataScienceActivity.this, KnowledgeActivity.class);
+                startActivity(intent7);
+            }
+        });
+
     }
     @Override
     public void onBackPressed(){

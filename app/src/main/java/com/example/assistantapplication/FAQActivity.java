@@ -3,6 +3,7 @@ package com.example.assistantapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FAQActivity extends AppCompatActivity {
 
@@ -36,6 +39,12 @@ public class FAQActivity extends AppCompatActivity {
     String top1;
     String top2;
     String top3;
+    public long now;
+    public Date mDate;
+    public SimpleDateFormat simpleDate;
+    public String formatDate;
+    String curName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +52,17 @@ public class FAQActivity extends AppCompatActivity {
 
         final Activity a = FAQActivity.this;
 
-        setTitle("자주묻는질문 관리");
+        //현재 시간
+        now = System.currentTimeMillis();
+        mDate = new Date(now);
+        simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        formatDate = simpleDate.format(mDate);
+        //현재 로그인 정보
+        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+        String curID = preferences.getString("ID","0");
+        curName = preferences.getString("Name","0");
+
+
         fButton1 = findViewById(R.id.fButton1);
         fButton2 = findViewById(R.id.fButton2);
         fButton3 = findViewById(R.id.fButton3);
@@ -161,7 +180,8 @@ public class FAQActivity extends AppCompatActivity {
 
                 JSONObject jsonObject0 = new JSONObject();
                 jsonObject0.accumulate("question", top1);
-
+                jsonObject0.accumulate("time",formatDate);
+                jsonObject0.accumulate("modifier",curName);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
