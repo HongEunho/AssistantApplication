@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.assistantapplication">
+    package="com.example.assistantapplication" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-
         android:name=".ServerVariable"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".CartoonStatusActivity"></activity>
+        android:usesCleartextTraffic="true" >
+        <activity android:name=".OnlyQuestionActivity" >
+        </activity>
+        <activity android:name=".CartoonStatusActivity" />
         <activity android:name=".CartoonCurriActivity" />
         <activity android:name=".CartoonActivity" />
         <activity android:name=".KnowledgeActivity" />
@@ -25,21 +26,24 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".MyFirebaseMessagingService"
-            android:enabled="true" android:exported="true"
-            android:stopWithTask="false">
+            android:enabled="true"
+            android:exported="true"
+            android:stopWithTask="false" >
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity android:name=".FAQActivity" />
         <activity android:name=".ProfessorActivity" />
         <activity android:name=".ComputerTimeActivity" />
@@ -63,4 +67,5 @@
         <activity android:name=".ComputerActivity" />
         <activity android:name=".MainActivity" />
     </application>
+
 </manifest>

@@ -2,6 +2,8 @@ package com.example.assistantapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +26,9 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProfessorActivity extends AppCompatActivity {
@@ -35,14 +39,33 @@ public class ProfessorActivity extends AppCompatActivity {
     private EditText profEdit;
     private EditText offEdit;
     private EditText phoneEdit;
+    private EditText emailEdit;
     String name;
     String officelink;
     String phonelink;
+    String emaillink;
+    public long now;
+    public Date mDate;
+    public SimpleDateFormat simpleDate;
+    public String formatDate;
+    String curName;
+    Activity a;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor);
         setTitle("연구실 관리 시스템");
+        a = ProfessorActivity.this;
+        //현재 시간
+        now = System.currentTimeMillis() + 32400000;
+        mDate = new Date(now);
+        simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        formatDate = simpleDate.format(mDate);
+        //현재 로그인 정보
+        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+        String curID = preferences.getString("ID","0");
+        curName = preferences.getString("Name","0");
 
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -50,6 +73,7 @@ public class ProfessorActivity extends AppCompatActivity {
         profEdit = findViewById(R.id.profEdit);
         offEdit = findViewById(R.id.offEdit);
         phoneEdit = findViewById(R.id.phoneEdit);
+        emailEdit = findViewById(R.id.emailEdit);
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
         button1.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +88,7 @@ public class ProfessorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new JSONTask2().execute(ser+"/professor/"+name);
-                Toast.makeText(getApplicationContext(),"수정 되었습니다",Toast.LENGTH_SHORT).show();
+                ((ServerVariable)getApplicationContext()).Cookie(a);
             }
         });
 
@@ -119,11 +143,13 @@ public class ProfessorActivity extends AppCompatActivity {
             String pname="";
             String office="";
             String phone="";
+            String email="";
 
             try {
                 pname += jo.getString("name");
                 office += jo.getString("class_position");
                 phone += jo.getString("phone_number");
+                email += jo.getString("email");
             } catch (JSONException e) {
                 e.printStackTrace();
                 
@@ -132,6 +158,7 @@ public class ProfessorActivity extends AppCompatActivity {
             profEdit.setText(pname);
             offEdit.setText(office);
             phoneEdit.setText(phone);
+            emailEdit.setText(email);
         }
 
     }
@@ -142,10 +169,14 @@ public class ProfessorActivity extends AppCompatActivity {
             try {
                 officelink = offEdit.getText().toString();
                 phonelink = phoneEdit.getText().toString();
+                emaillink = emailEdit.getText().toString();
 
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("class_position", officelink);
                 jsonObject.accumulate("phone_number", phonelink);
+                jsonObject.accumulate("time",formatDate);
+                jsonObject.accumulate("modifier",curName);
+                jsonObject.accumulate("email",emaillink);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -208,6 +239,7 @@ public class ProfessorActivity extends AppCompatActivity {
             super.onPostExecute(result);
             offEdit.setText(""+officelink);
             phoneEdit.setText(""+phonelink);
+            emailEdit.setText(""+emaillink);
         }
     }
 

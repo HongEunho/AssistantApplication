@@ -32,7 +32,6 @@ public class KnowledgeAdapter extends RecyclerView.Adapter<KnowledgeAdapter.Know
         protected TextView answer;
 
 
-
         public KnowledgeViewHolder(@NonNull View itemView) {
             super(itemView);
             this.question = itemView.findViewById(R.id.question);

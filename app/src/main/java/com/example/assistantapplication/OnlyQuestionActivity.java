@@ -1,15 +1,19 @@
 package com.example.assistantapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,46 +30,94 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
-public class DataScienceCurriActivity extends AppCompatActivity {
-    private EditText linkEdit;
-    private Button button;
-    String link2;
+public class OnlyQuestionActivity extends AppCompatActivity {
 
-    public static Context mContext;
+    private ArrayList<OnlyQuestion> mArrayList;
+    private OnlyQuestionAdapter mAdapter;
+    Activity a;
+    private int size = 0;
+    private JSONObject[] jo;
+    private String[] department;
+    private String[] content;
+    private String[] time;
+    private int[] idx;
+    private int idxno;
+    private String departmentE, contentE;
     public long now;
     public Date mDate;
     public SimpleDateFormat simpleDate;
     public String formatDate;
+    String curName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_science_curri);
-        mContext = this;
-        final Activity a = DataScienceCurriActivity.this;
+        setContentView(R.layout.activity_only_question);
 
         //현재 시간
         now = System.currentTimeMillis() + 32400000;
         mDate = new Date(now);
         simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         formatDate = simpleDate.format(mDate);
+        System.out.println("현재시간:"+formatDate);
+        //현재 로그인 정보
+        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+        String curID = preferences.getString("ID","0");
+        curName = preferences.getString("Name","0");
 
-        linkEdit = findViewById(R.id.linkEdit2);
-        button = findViewById(R.id.button);
-
-
+        a = OnlyQuestionActivity.this;
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
+        jo = new JSONObject[10000];
+        department = new String[10000]; content = new String[10000]; time = new String[10000];
+        idx = new int[10000];
 
-        new JSONTask().execute(ser+"/curriculum/데이터사이언스학과");
-        button.setOnClickListener(new View.OnClickListener() {
+        new JSONTask().execute(ser+"/question/"+"소프트웨어학과");
+        new JSONTask().execute(ser+"/question/"+"공통 질문");
+
+        final RecyclerView mRecyclerView = findViewById(R.id.onlyquestion_recyclerview);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        mArrayList = new ArrayList<>();
+
+        mAdapter = new OnlyQuestionAdapter(mArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnDeleteClickListener(new OnlyQuestionAdapter.OnDeleteClickListener() {
             @Override
-            public void onClick(View v) {
-                new JSONTask2().execute(ser+"/curriculum/데이터사이언스학과");
-                ((ServerVariable)getApplicationContext()).Cookie(a);
-                //Toast.makeText(getApplicationContext(),"수정 되었습니다",Toast.LENGTH_SHORT).show();
+            public void onDeleteClick(View v, int position) {
+                OnlyQuestion item = mAdapter.getItem(position);
+                final int pos = position;
+                idxno = item.getIdx();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(OnlyQuestionActivity.this);
+                builder.setMessage("삭제 하시겠습니까?");
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mArrayList.remove(pos);
+                        mAdapter.notifyDataSetChanged();
+                        new JSONTask2().execute(ser+"/question/"+Integer.toString(idxno));
+                        ((ServerVariable)getApplicationContext()).deleteSuccess(a);
+
+                    }
+                });
+
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
             }
         });
+
+
+
     }
 
     public class JSONTask extends AsyncTask<String, String, String> {
@@ -112,30 +164,50 @@ public class DataScienceCurriActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            JSONObject jo = jsonParsing2(result);
-            String link="";
 
             try {
-                link += jo.getString("link");
-
-                if(link.equals("null"))
-                    link="수정 중입니다.";
+                JSONArray ja = new JSONArray(result);
+                size = ja.length();
+                for(int i=0; i<ja.length(); i++)
+                {
+                    jo[i] = ja.getJSONObject(i);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            linkEdit.setText(link);
-        }
 
+            try {
+                for(int i=0; i<size;i++)
+                {
+                    idx[i] = jo[i].getInt("idx");
+                    department[i] = jo[i].getString("department");
+                    content[i] = jo[i].getString("content");
+                    time[i] = jo[i].getString("time");
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //recycler view에 탑재
+            for(int i=0; i<size; i++)
+            {
+                OnlyQuestion data = new OnlyQuestion(idx[i],department[i],content[i],time[i]);
+                mArrayList.add(data);
+
+            }
+            Collections.sort(mArrayList);
+            mAdapter.notifyDataSetChanged();
+        }
     }
+
     public class JSONTask2 extends AsyncTask<String, String, String>{
 
         @Override
         protected String doInBackground(String... urls) {
             try {
-                link2 = linkEdit.getText().toString();
+                JSONObject jsonObject0 = new JSONObject();
+                jsonObject0.accumulate("idx", idxno);
 
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("link", link2);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -144,7 +216,7 @@ public class DataScienceCurriActivity extends AppCompatActivity {
                     //URL url = new URL("http://192.168.25.16:3000/users");
                     URL url = new URL(urls[0]);
                     con = (HttpURLConnection) url.openConnection();
-                    con.setRequestMethod("PUT");
+                    con.setRequestMethod("DELETE");
                     con.setRequestProperty("Cache-Control", "no-cache");
                     con.setRequestProperty("Content-Type", "application/json");
                     con.setRequestProperty("Accept", "text/html");
@@ -154,7 +226,7 @@ public class DataScienceCurriActivity extends AppCompatActivity {
 
                     OutputStream outStream = con.getOutputStream();
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream));
-                    writer.write(jsonObject.toString());
+                    writer.write(jsonObject0.toString());
                     writer.flush();
                     writer.close();
 
@@ -196,19 +268,7 @@ public class DataScienceCurriActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            linkEdit.setText(""+link2);
-        }
-    }
 
-    public JSONObject jsonParsing2(String json)
-    {
-        JSONObject jo = null;
-        try {
-            JSONArray ja = new JSONArray(json);
-            jo = ja.getJSONObject(0);
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-        return jo;
     }
 }

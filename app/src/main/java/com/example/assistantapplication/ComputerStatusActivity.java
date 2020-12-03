@@ -65,7 +65,7 @@ public class ComputerStatusActivity extends AppCompatActivity {
         setTitle("컴퓨터공학과 조교관리 시스템");
 
         //현재 시간
-        now = System.currentTimeMillis();
+        now = System.currentTimeMillis() + 32400000;
         mDate = new Date(now);
         simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         formatDate = simpleDate.format(mDate);

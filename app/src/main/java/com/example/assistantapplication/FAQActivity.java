@@ -53,7 +53,7 @@ public class FAQActivity extends AppCompatActivity {
         final Activity a = FAQActivity.this;
 
         //현재 시간
-        now = System.currentTimeMillis();
+        now = System.currentTimeMillis() + 32400000;
         mDate = new Date(now);
         simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         formatDate = simpleDate.format(mDate);
@@ -255,7 +255,8 @@ public class FAQActivity extends AppCompatActivity {
 
                 JSONObject jsonObject0 = new JSONObject();
                 jsonObject0.accumulate("question", top2);
-
+                jsonObject0.accumulate("time",formatDate);
+                jsonObject0.accumulate("modifier",curName);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -329,7 +330,8 @@ public class FAQActivity extends AppCompatActivity {
 
                 JSONObject jsonObject0 = new JSONObject();
                 jsonObject0.accumulate("question", top3);
-
+                jsonObject0.accumulate("time",formatDate);
+                jsonObject0.accumulate("modifier",curName);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;

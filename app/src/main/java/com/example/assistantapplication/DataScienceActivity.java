@@ -1,13 +1,21 @@
 package com.example.assistantapplication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,7 +25,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class DataScienceActivity extends AppCompatActivity {
 
     private Button staBtn;
-    private Button curriBtn;
+    private Button onlyQaBtn;
     private Button roomBtn;
     private Button officeBtn;
     private Button FAQBtn;
@@ -25,6 +33,8 @@ public class DataScienceActivity extends AppCompatActivity {
     private Button knowledgeBtn;
     private long backKeyPressedTime = 0;
     private Toast toast;
+    private Switch pushSwitch;
+    ImageButton menu_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +57,58 @@ public class DataScienceActivity extends AppCompatActivity {
                 });
         System.out.println("확인함"+curID);
         staBtn = findViewById(R.id.staBtn);
-        curriBtn = findViewById(R.id.curriBtn);
+        onlyQaBtn = findViewById(R.id.onlyQaBtn);
         roomBtn = findViewById(R.id.roomBtn);
         officeBtn = findViewById(R.id.officeBtn);
         noticeBtn = findViewById(R.id.noticeBtn);
         FAQBtn = findViewById(R.id.FAQBtn);
         knowledgeBtn = findViewById(R.id.knowledgeBtn);
+        pushSwitch = findViewById(R.id.pushSwitch);
+        pushSwitch.setChecked(true);
+        menu_btn = findViewById(R.id.menu_btn);
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("클릭");
+                PopupMenu popup = new PopupMenu(getApplicationContext(), v);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.popupmenu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if(item.getTitle().toString().equals("로그아웃"))
+                        {
+                            AlertDialog.Builder dlg = new AlertDialog.Builder(DataScienceActivity.this);
+                            dlg.setMessage("로그아웃 하시겠습니까?");
+                            dlg.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.putString("ID", null);
+                                    editor.putString("Password", null);
+                                    editor.putString("Department","9999");
+                                    editor.putString("Name",null);
+                                    editor.commit();
+                                    Intent intent = new Intent(DataScienceActivity.this, LoginActivity.class);
+                                    intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+                            });
+                            dlg.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
+                                }
+                            });
+                            dlg.show();
+                        }
+                        return false;
+                    }
+                });
+                popup.show();
+            }
+        });
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,10 +116,10 @@ public class DataScienceActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        curriBtn.setOnClickListener(new View.OnClickListener() {
+        onlyQaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(DataScienceActivity.this,DataScienceCurriActivity.class);
+                Intent intent2 = new Intent(DataScienceActivity.this,OnlyQuestionActivity.class);
                 startActivity(intent2);
             }
         });
@@ -102,6 +157,17 @@ public class DataScienceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent7 = new Intent(DataScienceActivity.this, KnowledgeActivity.class);
                 startActivity(intent7);
+            }
+        });
+        pushSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    FirebaseMessaging.getInstance().subscribeToTopic("datascience");
+                }
+                else{
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("datascience");
+                }
             }
         });
 

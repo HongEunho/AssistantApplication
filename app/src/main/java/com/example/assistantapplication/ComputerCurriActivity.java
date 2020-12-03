@@ -50,7 +50,7 @@ public class ComputerCurriActivity extends AppCompatActivity {
 
 
         //현재 시간
-        now = System.currentTimeMillis();
+        now = System.currentTimeMillis() + 32400000;
         mDate = new Date(now);
         simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         formatDate = simpleDate.format(mDate);

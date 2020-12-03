@@ -72,10 +72,52 @@ public class LoginActivity extends AppCompatActivity {
         loading.setVisibility(View.INVISIBLE);
         a = LoginActivity.this;
 
-
-
         idEdit = (AppCompatEditText)findViewById(R.id.idEdit2);
         passEdit = (AppCompatEditText)findViewById(R.id.passEdit2);
+
+        SharedPreferences auto = getSharedPreferences("login",MODE_PRIVATE);
+        String autoID = auto.getString("ID",null);
+        String autoPw = auto.getString("Password", null);
+        String autodep = auto.getString("Department", "9999");
+        if(autoID != null && autoPw != null)
+        {
+            System.out.println("진입");
+            if (autodep.equals("0")) {
+                Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (autodep.equals("1")) {
+                Intent intent = new Intent(LoginActivity.this, SoftwareActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (autodep.equals("2")) {
+                Intent intent = new Intent(LoginActivity.this, SecurityActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (autodep.equals("3")) {
+                Intent intent = new Intent(LoginActivity.this, DataScienceActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (autodep.equals("4")) {
+                Intent intent = new Intent(LoginActivity.this, IntellActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (autodep.equals("5")) {
+                Intent intent = new Intent(LoginActivity.this, IdeaActivity.class);
+                startActivity(intent);
+                finish();
+            }else if (autodep.equals("6")) {
+                Intent intent = new Intent(LoginActivity.this, CartoonActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else if (autodep.equals("7")){
+                Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
