@@ -24,6 +24,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class IdeaActivity extends AppCompatActivity {
     //창의인재 -> 디자인이노베이션
+    //디자인 이노베이션 액티비티 입니다.
     private Button staBtn;
     private Button onlyQaBtn;
     private Button roomBtn;

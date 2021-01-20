@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class CartoonActivity extends AppCompatActivity {
+    //만화 애니메이션텍 액티비티입니다.
     private Button staBtn;
     private Button onlyQaBtn;
     private Button roomBtn;

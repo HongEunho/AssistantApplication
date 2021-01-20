@@ -28,7 +28,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class ComputerActivity extends AppCompatActivity {
-    
+    //컴퓨터공학과 액티비티입니다.
     private Button staBtn;
     private Button onlyQaBtn;
     private Button roomBtn;

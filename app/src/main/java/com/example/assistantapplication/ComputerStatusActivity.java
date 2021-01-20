@@ -39,7 +39,6 @@ public class ComputerStatusActivity extends AppCompatActivity {
     private TextView comment;
     private EditText commentEdit;
     private EditText majorEdit;
-    private EditText statusEdit;
     private EditText positionEdit;
     private EditText phoneNumEdit;
     private RadioButton workBtn;
@@ -79,7 +78,6 @@ public class ComputerStatusActivity extends AppCompatActivity {
         majorEdit = findViewById(R.id.majorEdit);
         positionEdit = findViewById(R.id.positionEdit);
         phoneNumEdit = findViewById(R.id.officeNumEdit);
-        statusEdit = findViewById(R.id.statusEdit);
         commentEdit = findViewById(R.id.commentEdit);
         workBtn = findViewById(R.id.workBtn);
         notworkBtn = findViewById(R.id.notworkBtn);
@@ -176,7 +174,6 @@ public class ComputerStatusActivity extends AppCompatActivity {
                 sta += jo.getString("status");
                 position += jo.getString("position");
                 phoneNum += jo.getString("phoneNumber");
-
                 comment += jo.getString("comment");
                 if(comment.equals("null"))
                     comment="없습니다";
@@ -191,7 +188,6 @@ public class ComputerStatusActivity extends AppCompatActivity {
             else if(staint == 2) { workBtn.setChecked(false); notworkBtn.setChecked(false); longnotBtn.setChecked(true);      }
             else { workBtn.setChecked(true); notworkBtn.setChecked(false); longnotBtn.setChecked(false);      }
 
-            //statusEdit.setText(sta);
             majorEdit.setText(dep);
             commentEdit.setText(comment);
             positionEdit.setText(position);
@@ -206,7 +202,6 @@ public class ComputerStatusActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... urls) {
             try {
-                //staint = Integer.parseInt(statusEdit.getText().toString());
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("status", staint);
                 jsonObject.accumulate("comment", commentEdit.getText().toString());
@@ -275,7 +270,6 @@ public class ComputerStatusActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            //statusEdit.setText(""+staint);
         }
     }
 

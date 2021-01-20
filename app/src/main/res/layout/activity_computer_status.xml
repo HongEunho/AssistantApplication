@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="@color/sejongbackground"
     tools:context=".ComputerStatusActivity">
 
     <TextView
@@ -17,10 +18,8 @@
         android:text="학과"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FFFFFF" />
-
 
     <EditText
         android:id="@+id/majorEdit"

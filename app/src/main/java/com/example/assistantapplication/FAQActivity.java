@@ -29,7 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FAQActivity extends AppCompatActivity {
-
+    //자주묻는질문 TOP3 액티비티 입니다.
     private Button fButton1;
     private Button fButton2;
     private Button fButton3;

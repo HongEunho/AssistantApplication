@@ -9,7 +9,7 @@ public class ServerVariable extends Application {
     public String server;
 
     public String getSer(){
-        return "https://mfam.site";
+        return "https://sjswbot.site";
     }
 
     public void Cookie(Activity a){

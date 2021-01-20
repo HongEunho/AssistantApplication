@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CartoonCurriActivity">
+    tools:context=".CartoonCurriActivity"
+    android:background="@color/sejongbackground">
 
     <TextView
         android:id="@+id/cTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:layout_marginLeft="0sp"
         android:layout_marginTop="50sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:background="@drawable/editmain"
+        android:background="@drawable/buttonround"
         android:textColor="#FFFFFF"
         android:text="만화애니메이션텍 교과과정 링크" />
 
@@ -30,7 +32,10 @@
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:background="@drawable/buttonround"
+        android:backgroundTint="@color/sejongnavy"
+        android:textColor="#FFFFFF"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="false"
         android:layout_marginTop="150sp"

@@ -23,7 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DataScienceActivity extends AppCompatActivity {
-
+    //데이터사이언스학과 액티비티 입니다.
     private Button staBtn;
     private Button onlyQaBtn;
     private Button roomBtn;

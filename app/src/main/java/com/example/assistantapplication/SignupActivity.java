@@ -72,7 +72,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String str = emailEdit.getText().toString();
 
-                if(check == false)
+                if(!check)
                 {
                     Toast.makeText(getApplicationContext(), "아이디를 확인해주세요", Toast.LENGTH_SHORT).show();
                 }

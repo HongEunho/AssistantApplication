@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ComputerCurriActivity">
+    tools:context=".ComputerCurriActivity"
+    android:background="@color/sejongbackground">
 
     <TextView
         android:id="@+id/cTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:background="@drawable/buttonround"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="0sp"
         android:layout_marginTop="50sp"
+        android:text="컴퓨터공학과 교과과정 링크"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:background="@drawable/editmain"
-        android:textColor="#FFFFFF"
-        android:text="컴퓨터공학과 교과과정 링크" />
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/linkEdit2"
@@ -30,10 +32,13 @@
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:background="@drawable/buttonround"
+        android:backgroundTint="@color/sejongnavy"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="false"
         android:layout_marginTop="150sp"
+        android:textColor="#FFFFFF"
         android:text="수정" />
 
 </RelativeLayout>
