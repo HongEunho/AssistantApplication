@@ -295,9 +295,16 @@ public class LoginActivity extends AppCompatActivity {
 
     public JSONObject jsonParsing2(String json) throws JSONException {
         JSONObject jo = new JSONObject(json);
-        JSONObject userjo = (JSONObject) jo.get("result");
-        dep = userjo.get("department").toString();
-        name = userjo.get("user").toString();
+        JSONArray ja = jo.getJSONArray("result");
+        System.out.println("제이슨"+ja);
+        JSONObject resultjo = ja.getJSONObject(0);
+        dep = resultjo.get("department").toString();
+        name = resultjo.get("user").toString();
+
+        System.out.println("제이슨 이름"+dep);
+        //JSONObject userjo = (JSONObject) jo.get("result");
+        //dep = userjo.get("department").toString();
+        //name = userjo.get("user").toString();
         //현재 id와 password는 edittext 그대로 가져오고 dep는 서버결과값에서 가져옴
         System.out.println("칼"+dep);
         SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
@@ -307,7 +314,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("Department",dep);
         editor.putString("Name",name);
         editor.commit();
-        return jo;
+        return resultjo;
     }
 
 }
