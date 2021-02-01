@@ -112,7 +112,7 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         depButton.setText(versionArray[which]);
-                        dep = which;
+                        dep = which+1;
                         System.out.println("학과확인"+dep);
                     }
                 });
