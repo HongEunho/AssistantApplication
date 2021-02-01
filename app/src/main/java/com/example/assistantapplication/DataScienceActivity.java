@@ -112,7 +112,8 @@ public class DataScienceActivity extends AppCompatActivity {
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DataScienceActivity.this,DataScienceStatusActivity.class);
+                Intent intent = new Intent(DataScienceActivity.this, StatusActivity.class);
+                System.out.println("데이터사이언스 클릭");
                 startActivity(intent);
             }
         });
