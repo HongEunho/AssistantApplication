@@ -107,7 +107,7 @@ public class CartoonActivity extends AppCompatActivity {
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CartoonActivity.this,CartoonStatusActivity.class);
+                Intent intent = new Intent(CartoonActivity.this,ComputerStatusActivity.class);
                 startActivity(intent);
             }
         });
