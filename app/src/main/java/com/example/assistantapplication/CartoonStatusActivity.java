@@ -50,6 +50,7 @@ public class CartoonStatusActivity extends AppCompatActivity {
     public SimpleDateFormat simpleDate;
     public String formatDate;
     String curName;
+    String myToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class CartoonStatusActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
         String curID = preferences.getString("ID","0");
         curName = preferences.getString("Name","0");
+        myToken = preferences.getString("Token",null);
 
         comment = findViewById(R.id.comment);
         commentEdit = findViewById(R.id.commentEdit);
