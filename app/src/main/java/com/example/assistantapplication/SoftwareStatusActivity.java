@@ -13,9 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,7 +54,7 @@ public class SoftwareStatusActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_computer_status);
+        setContentView(R.layout.activity_status);
         setTitle("소프트웨어학과 조교관리 시스템");
 
         final Activity a = SoftwareStatusActivity.this;
