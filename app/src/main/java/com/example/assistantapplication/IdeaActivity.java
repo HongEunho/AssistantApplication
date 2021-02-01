@@ -114,7 +114,7 @@ public class IdeaActivity extends AppCompatActivity {
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IdeaActivity.this,IdeaStatusActivity.class);
+                Intent intent = new Intent(IdeaActivity.this, StatusActivity.class);
                 startActivity(intent);
             }
         });
