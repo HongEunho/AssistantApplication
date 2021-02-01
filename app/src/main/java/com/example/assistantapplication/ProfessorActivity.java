@@ -49,6 +49,7 @@ public class ProfessorActivity extends AppCompatActivity {
     public SimpleDateFormat simpleDate;
     public String formatDate;
     String curName;
+    String myToken;
     Activity a;
 
     @Override
@@ -66,6 +67,7 @@ public class ProfessorActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
         String curID = preferences.getString("ID","0");
         curName = preferences.getString("Name","0");
+        myToken = preferences.getString("Token",null);
 
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -147,8 +149,8 @@ public class ProfessorActivity extends AppCompatActivity {
 
             try {
                 pname += jo.getString("name");
-                office += jo.getString("class_position");
-                phone += jo.getString("phone_number");
+                office += jo.getString("classPosition");
+                phone += jo.getString("phoneNumber");
                 email += jo.getString("email");
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -172,10 +174,8 @@ public class ProfessorActivity extends AppCompatActivity {
                 emaillink = emailEdit.getText().toString();
 
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("class_position", officelink);
-                jsonObject.accumulate("phone_number", phonelink);
-                jsonObject.accumulate("time",formatDate);
-                jsonObject.accumulate("modifier",curName);
+                jsonObject.accumulate("classPosition", officelink);
+                jsonObject.accumulate("phoneNumber", phonelink);
                 jsonObject.accumulate("email",emaillink);
 
                 HttpURLConnection con = null;
@@ -189,6 +189,7 @@ public class ProfessorActivity extends AppCompatActivity {
                     con.setRequestProperty("Cache-Control", "no-cache");
                     con.setRequestProperty("Content-Type", "application/json");
                     con.setRequestProperty("Accept", "text/html");
+                    con.setRequestProperty("Authorization", myToken);
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.connect();
@@ -247,12 +248,13 @@ public class ProfessorActivity extends AppCompatActivity {
     public JSONObject jsonParsing2(String json)
     {
         JSONObject jo = null;
+        JSONObject resultjo = null;
         try {
-            JSONArray ja = new JSONArray(json);
-            jo = ja.getJSONObject(0);
+            jo = new JSONObject(json);
+            resultjo = jo.getJSONObject("result");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jo;
+        return resultjo;
     }
 }
