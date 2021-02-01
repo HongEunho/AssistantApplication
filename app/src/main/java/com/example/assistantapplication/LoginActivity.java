@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     String password;
     String dep;
     String name;
+    String mytoken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,39 +80,41 @@ public class LoginActivity extends AppCompatActivity {
         String autoID = auto.getString("ID",null);
         String autoPw = auto.getString("Password", null);
         String autodep = auto.getString("Department", "9999");
+        String autotok = auto.getString("Token", null);
+        System.out.println("autodep 확인" + autodep);
         if(autoID != null && autoPw != null)
         {
             System.out.println("진입");
-            if (autodep.equals("0")) {
+            if (autodep.equals("1")) {
                 Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("1")) {
+            } else if (autodep.equals("2")) {
                 Intent intent = new Intent(LoginActivity.this, SoftwareActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("2")) {
+            } else if (autodep.equals("3")) {
                 Intent intent = new Intent(LoginActivity.this, SecurityActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("3")) {
+            } else if (autodep.equals("4")) {
                 Intent intent = new Intent(LoginActivity.this, DataScienceActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("4")) {
+            } else if (autodep.equals("5")) {
                 Intent intent = new Intent(LoginActivity.this, IntellActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("5")) {
+            } else if (autodep.equals("6")) {
                 Intent intent = new Intent(LoginActivity.this, IdeaActivity.class);
                 startActivity(intent);
                 finish();
-            }else if (autodep.equals("6")) {
+            }else if (autodep.equals("7")) {
                 Intent intent = new Intent(LoginActivity.this, CartoonActivity.class);
                 startActivity(intent);
                 finish();
             }
-            else if (autodep.equals("7")){
+            else if (autodep.equals("8")){
                 Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
                 startActivity(intent);
                 finish();
@@ -249,36 +252,36 @@ public class LoginActivity extends AppCompatActivity {
                 //JSONObject jo2 = jo.optJSONObject("user");
                 //System.out.println("확인"+jo2.toString());
                 if (result != null) {
-                    if (dep.equals("0")) {
+                    if (dep.equals("1")) {
                         Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("1")) {
+                    } else if (dep.equals("2")) {
                         Intent intent = new Intent(LoginActivity.this, SoftwareActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("2")) {
+                    } else if (dep.equals("3")) {
                         Intent intent = new Intent(LoginActivity.this, SecurityActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("3")) {
+                    } else if (dep.equals("4")) {
                         Intent intent = new Intent(LoginActivity.this, DataScienceActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("4")) {
+                    } else if (dep.equals("5")) {
                         Intent intent = new Intent(LoginActivity.this, IntellActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("5")) {
+                    } else if (dep.equals("6")) {
                         Intent intent = new Intent(LoginActivity.this, IdeaActivity.class);
                         startActivity(intent);
                         finish();
-                    }else if (dep.equals("6")) {
+                    }else if (dep.equals("7")) {
                         Intent intent = new Intent(LoginActivity.this, CartoonActivity.class);
                         startActivity(intent);
                         finish();
                     }
-                    else if (dep.equals("7")){
+                    else if (dep.equals("8")){
                         Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
                         startActivity(intent);
                         finish();
@@ -300,6 +303,7 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject resultjo = ja.getJSONObject(0);
         dep = resultjo.get("department").toString();
         name = resultjo.get("user").toString();
+        mytoken = resultjo.get("token").toString();
 
         System.out.println("제이슨 이름"+dep);
         //JSONObject userjo = (JSONObject) jo.get("result");
@@ -313,6 +317,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("Password",password);
         editor.putString("Department",dep);
         editor.putString("Name",name);
+        editor.putString("Token",mytoken);
         editor.commit();
         return resultjo;
     }
