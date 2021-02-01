@@ -112,7 +112,7 @@ public class SoftwareActivity extends AppCompatActivity {
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SoftwareActivity.this,SoftwareStatusActivity.class);
+                Intent intent = new Intent(SoftwareActivity.this, StatusActivity.class);
                 startActivity(intent);
             }
         });
