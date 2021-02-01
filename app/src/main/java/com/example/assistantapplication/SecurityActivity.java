@@ -117,7 +117,7 @@ public class SecurityActivity extends AppCompatActivity {
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SecurityActivity.this,SecurityStatusActivity.class);
+                Intent intent = new Intent(SecurityActivity.this, StatusActivity.class);
                 startActivity(intent);
             }
         });
