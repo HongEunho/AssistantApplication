@@ -53,15 +53,17 @@ public class ComputerStatusActivity extends AppCompatActivity {
     public SimpleDateFormat simpleDate;
     public String formatDate;
     String curName;
+    String myToken;
+    String myDep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer_status);
-
         final Activity a = ComputerStatusActivity.this;
 
-        setTitle("컴퓨터공학과 조교관리 시스템");
+        //setTitle("컴퓨터공학과 조교관리 시스템");
+        // 원래는 컴퓨터공학과 전용 페이지였지만 변수설정으로 모든 학과의 설정 페이지로 변경하였음.
 
         //현재 시간
         now = System.currentTimeMillis() + 32400000;
@@ -72,6 +74,9 @@ public class ComputerStatusActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
         String curID = preferences.getString("ID","0");
         curName = preferences.getString("Name","0");
+        myDep = preferences.getString("Department", "9999");
+        myToken = preferences.getString("Token",null);
+        System.out.println("현재 내 토큰"+myToken);
 
         comment = findViewById(R.id.comment);
         commentEdit = findViewById(R.id.commentEdit);
@@ -91,7 +96,7 @@ public class ComputerStatusActivity extends AppCompatActivity {
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
-        new JSONTask().execute(ser+"/status/컴퓨터공학과");
+        new JSONTask().execute(ser+"/status/"+myDep);
 
         RadioGroup.OnCheckedChangeListener radioGroupButtonChangeListener = new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -111,7 +116,7 @@ public class ComputerStatusActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask2().execute(ser+"/status/컴퓨터공학과");
+                new JSONTask2().execute(ser+"/status/"+myDep);
                 ((ServerVariable)getApplicationContext()).Cookie(a);
             }
         });
@@ -161,9 +166,8 @@ public class ComputerStatusActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            //String id = jsonParsing(result);
             JSONObject jo = jsonParsing2(result);
-            //System.out.println("학과"+result);
+            System.out.println("학과"+result);
             String position="";
             String dep="";
             String sta="";
@@ -221,6 +225,7 @@ public class ComputerStatusActivity extends AppCompatActivity {
                     con.setRequestProperty("Cache-Control", "no-cache");
                     con.setRequestProperty("Content-Type", "application/json");
                     con.setRequestProperty("Accept", "text/html");
+                    con.setRequestProperty("Authorization", myToken);
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.connect();
@@ -276,14 +281,14 @@ public class ComputerStatusActivity extends AppCompatActivity {
     public JSONObject jsonParsing2(String json)
     {
         JSONObject jo = null;
+        JSONObject resultjo = null;
         try {
-            JSONArray ja = new JSONArray(json);
-            jo = ja.getJSONObject(0);
+            jo = new JSONObject(json);
+            resultjo = jo.getJSONObject("result");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jo;
+        return resultjo;
     }
-
 
 }
