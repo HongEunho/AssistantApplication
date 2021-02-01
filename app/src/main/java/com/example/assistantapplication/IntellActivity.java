@@ -113,7 +113,7 @@ public class IntellActivity extends AppCompatActivity {
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IntellActivity.this,IntellStatusActivity.class);
+                Intent intent = new Intent(IntellActivity.this, StatusActivity.class);
                 startActivity(intent);
             }
         });
