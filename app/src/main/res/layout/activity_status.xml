@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/sejongbackground"
+    tools:context=".StatusActivity">
+
+    <TextView
+        android:id="@+id/major"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/editmain"
+        android:text="학과"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/majorEdit"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:focusable="false"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintTop_toBottomOf="@+id/major"
+        app:layout_constraintStart_toStartOf="@id/major"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="30dp"
+        android:background="@drawable/editmain"
+        android:text="위치"
+        app:layout_constraintTop_toBottomOf="@id/majorEdit"
+        app:layout_constraintStart_toStartOf="@id/majorEdit"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/positionEdit"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintTop_toBottomOf="@+id/position"
+        app:layout_constraintStart_toStartOf="@id/position"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/officeNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/editmain"
+        app:layout_constraintStart_toStartOf="@id/position"
+        app:layout_constraintTop_toBottomOf="@+id/positionEdit"
+        android:text="전화번호"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/officeNumEdit"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintTop_toBottomOf="@+id/officeNum"
+        app:layout_constraintStart_toStartOf="@id/officeNum"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/editmain"
+        app:layout_constraintStart_toStartOf="@id/officeNum"
+        app:layout_constraintTop_toBottomOf="@id/officeNumEdit"
+        android:text="상태"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF" />
+
+    <RadioGroup
+        android:id="@+id/workingGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/status"
+        app:layout_constraintTop_toBottomOf="@id/status">
+
+        <RadioButton
+            android:id="@+id/workBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="근무중" />
+
+        <RadioButton
+            android:id="@+id/notworkBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
+            android:text="부재중" />
+
+        <RadioButton
+            android:id="@+id/longnotBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
+            android:text="장기 부재중" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/editmain"
+        android:text="특이 사항"
+        app:layout_constraintTop_toBottomOf="@id/workingGroup"
+        app:layout_constraintStart_toStartOf="@id/officeNum"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/commentEdit"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/comment"
+        app:layout_constraintStart_toStartOf="@id/comment"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="220dp"
+
+        android:text="수정"
+        app:layout_constraintEnd_toEndOf="@id/officeNumEdit"
+        app:layout_constraintTop_toBottomOf="@id/officeNumEdit" />
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
