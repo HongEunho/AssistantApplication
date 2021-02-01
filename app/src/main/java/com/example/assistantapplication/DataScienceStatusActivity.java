@@ -32,6 +32,8 @@ public class DataScienceStatusActivity extends AppCompatActivity {
     private Button button;
     int staint;
 
+    String myToken;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
