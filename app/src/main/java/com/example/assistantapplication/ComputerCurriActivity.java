@@ -61,11 +61,11 @@ public class ComputerCurriActivity extends AppCompatActivity {
 
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
 
-        new JSONTask().execute(ser+"/curriculum/컴퓨터공학과");
+        new JSONTask().execute(ser+"/curriculum/1");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask2().execute(ser+"/curriculum/컴퓨터공학과");
+                new JSONTask2().execute(ser+"/curriculum/1");
                 //Toast.makeText(getApplicationContext(),"수정 되었습니다",Toast.LENGTH_SHORT).show();
                 ((ServerVariable)getApplicationContext()).Cookie(a);
             }
