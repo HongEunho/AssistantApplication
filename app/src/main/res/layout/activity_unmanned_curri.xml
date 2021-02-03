@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sejongbackground"
-    tools:context=".IdeaCurriActivity">
+    tools:context=".UnmannedCurriActivity">
 
     <EditText
         android:id="@+id/linkEdit2"
@@ -15,6 +15,19 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name" />
+
+    <TextView
+        android:id="@+id/cTV"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:background="@drawable/buttonround"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="0sp"
+        android:layout_marginTop="50sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF"
+        android:text="지능기전공학부 교과과정 링크" />
 
     <Button
         android:id="@+id/button"
@@ -28,16 +41,4 @@
         android:layout_marginTop="150sp"
         android:text="수정" />
 
-    <TextView
-        android:id="@+id/cTV"
-        android:layout_width="220dp"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:background="@drawable/buttonround"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="0sp"
-        android:layout_marginTop="50sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#FFFFFF"
-        android:text="디자인이노베이션 교과과정 링크" />
 </RelativeLayout>

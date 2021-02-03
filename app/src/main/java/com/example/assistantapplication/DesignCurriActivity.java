@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class IdeaCurriActivity extends AppCompatActivity {
+public class DesignCurriActivity extends AppCompatActivity {
     private EditText linkEdit;
     private Button button;
     String link2;
@@ -33,9 +32,9 @@ public class IdeaCurriActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_idea_curri);
+        setContentView(R.layout.activity_design_curri);
 
-        final Activity a = IdeaCurriActivity.this;
+        final Activity a = DesignCurriActivity.this;
 
         setTitle("디자인이노베이션 조교관리 시스템");
         linkEdit = findViewById(R.id.linkEdit2);

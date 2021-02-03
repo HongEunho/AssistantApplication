@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class IntellCurriActivity extends AppCompatActivity {
+public class UnmannedCurriActivity extends AppCompatActivity {
 
     private EditText linkEdit;
     private Button button;
@@ -34,8 +33,8 @@ public class IntellCurriActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intell_curri);
-        final Activity a = IntellCurriActivity.this;
+        setContentView(R.layout.activity_unmanned_curri);
+        final Activity a = UnmannedCurriActivity.this;
         setTitle("지능기전공학부 조교관리 시스템");
         linkEdit = findViewById(R.id.linkEdit2);
         button = findViewById(R.id.button);

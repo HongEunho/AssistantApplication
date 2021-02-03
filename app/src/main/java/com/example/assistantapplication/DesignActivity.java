@@ -22,7 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class IdeaActivity extends AppCompatActivity {
+public class DesignActivity extends AppCompatActivity {
     //창의인재 -> 디자인이노베이션
     //디자인 이노베이션 액티비티 입니다.
     private Button staBtn;
@@ -80,7 +80,7 @@ public class IdeaActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         if(item.getTitle().toString().equals("로그아웃"))
                         {
-                            AlertDialog.Builder dlg = new AlertDialog.Builder(IdeaActivity.this);
+                            AlertDialog.Builder dlg = new AlertDialog.Builder(DesignActivity.this);
                             dlg.setMessage("로그아웃 하시겠습니까?");
                             dlg.setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 @Override
@@ -92,7 +92,7 @@ public class IdeaActivity extends AppCompatActivity {
                                     editor.putString("Department","9999");
                                     editor.putString("Name",null);
                                     editor.commit();
-                                    Intent intent = new Intent(IdeaActivity.this, LoginActivity.class);
+                                    Intent intent = new Intent(DesignActivity.this, LoginActivity.class);
                                     intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }
@@ -114,42 +114,42 @@ public class IdeaActivity extends AppCompatActivity {
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IdeaActivity.this, StatusActivity.class);
+                Intent intent = new Intent(DesignActivity.this, StatusActivity.class);
                 startActivity(intent);
             }
         });
         onlyQaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(IdeaActivity.this,OnlyQuestionActivity.class);
+                Intent intent2 = new Intent(DesignActivity.this,OnlyQuestionActivity.class);
                 startActivity(intent2);
             }
         });
         roomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(IdeaActivity.this,ComputerTimeActivity.class);
+                Intent intent3 = new Intent(DesignActivity.this,ComputerTimeActivity.class);
                 startActivity(intent3);
             }
         });
         officeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent4 = new Intent(IdeaActivity.this, ProfessorActivity.class);
+                Intent intent4 = new Intent(DesignActivity.this, ProfessorActivity.class);
                 startActivity(intent4);
             }
         });
         FAQBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent5 = new Intent(IdeaActivity.this, FAQActivity.class);
+                Intent intent5 = new Intent(DesignActivity.this, FAQActivity.class);
                 startActivity(intent5);
             }
         });
         noticeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent6 = new Intent(IdeaActivity.this, NoticeActivity.class);
+                Intent intent6 = new Intent(DesignActivity.this, NoticeActivity.class);
                 intent6.putExtra("department","디자인이노베이션");
                 startActivity(intent6);
             }
@@ -157,7 +157,8 @@ public class IdeaActivity extends AppCompatActivity {
         knowledgeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent7 = new Intent(IdeaActivity.this, KnowledgeActivity.class);
+                Intent intent7 = new Intent(DesignActivity.this, KnowledgeActivity.class);
+                intent7.putExtra("department", "디자인이노베이션");
                 startActivity(intent7);
             }
         });

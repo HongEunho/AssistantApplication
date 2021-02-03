@@ -22,7 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class IntellActivity extends AppCompatActivity {
+public class UnmannedActivity extends AppCompatActivity {
     //지능기전공학부
     private Button staBtn;
     private Button onlyQaBtn;
@@ -79,7 +79,7 @@ public class IntellActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         if(item.getTitle().toString().equals("로그아웃"))
                         {
-                            AlertDialog.Builder dlg = new AlertDialog.Builder(IntellActivity.this);
+                            AlertDialog.Builder dlg = new AlertDialog.Builder(UnmannedActivity.this);
                             dlg.setMessage("로그아웃 하시겠습니까?");
                             dlg.setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 @Override
@@ -91,7 +91,7 @@ public class IntellActivity extends AppCompatActivity {
                                     editor.putString("Department","9999");
                                     editor.putString("Name",null);
                                     editor.commit();
-                                    Intent intent = new Intent(IntellActivity.this, LoginActivity.class);
+                                    Intent intent = new Intent(UnmannedActivity.this, LoginActivity.class);
                                     intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }
@@ -113,50 +113,51 @@ public class IntellActivity extends AppCompatActivity {
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IntellActivity.this, StatusActivity.class);
+                Intent intent = new Intent(UnmannedActivity.this, StatusActivity.class);
                 startActivity(intent);
             }
         });
         onlyQaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(IntellActivity.this,OnlyQuestionActivity.class);
+                Intent intent2 = new Intent(UnmannedActivity.this,OnlyQuestionActivity.class);
                 startActivity(intent2);
             }
         });
         roomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(IntellActivity.this,ComputerTimeActivity.class);
+                Intent intent3 = new Intent(UnmannedActivity.this,ComputerTimeActivity.class);
                 startActivity(intent3);
             }
         });
         officeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent4 = new Intent(IntellActivity.this, ProfessorActivity.class);
+                Intent intent4 = new Intent(UnmannedActivity.this, ProfessorActivity.class);
                 startActivity(intent4);
             }
         });
         FAQBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent5 = new Intent(IntellActivity.this, FAQActivity.class);
+                Intent intent5 = new Intent(UnmannedActivity.this, FAQActivity.class);
                 startActivity(intent5);
             }
         });
         noticeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent6 = new Intent(IntellActivity.this, NoticeActivity.class);
-                intent6.putExtra("department","지능기전공학부");
+                Intent intent6 = new Intent(UnmannedActivity.this, NoticeActivity.class);
+                intent6.putExtra("department","무인이동체공학전공");
                 startActivity(intent6);
             }
         });
         knowledgeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent7 = new Intent(IntellActivity.this, KnowledgeActivity.class);
+                Intent intent7 = new Intent(UnmannedActivity.this, KnowledgeActivity.class);
+                intent7.putExtra("department","무인이동체공학전공");
                 startActivity(intent7);
             }
         });
