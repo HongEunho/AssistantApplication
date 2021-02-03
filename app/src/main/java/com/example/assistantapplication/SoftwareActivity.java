@@ -156,6 +156,7 @@ public class SoftwareActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent7 = new Intent(SoftwareActivity.this, KnowledgeActivity.class);
+                intent7.putExtra("department", "소프트웨어학과");
                 startActivity(intent7);
             }
         });

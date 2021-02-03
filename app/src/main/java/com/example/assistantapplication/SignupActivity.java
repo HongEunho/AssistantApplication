@@ -106,7 +106,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(SignupActivity.this);
                 dlg.setTitle("학과를 선택하세요");
-                final String[] versionArray = new String[] {"컴퓨터공학과", "소프트웨어학과", "정보보호학과", "데이터사이언스학과", "지능기전공학부", "디자인이노베이션","만화애니메이션텍"};
+                final String[] versionArray = new String[] {"컴퓨터공학과", "소프트웨어학과", "정보보호학과", "데이터사이언스학과", "디자인이노베이션","만화애니메이션텍", "스마트기기공학전공", "무인이동체공학전공", "인공지능학과"};
                 //아이콘 만들면 여기에 생성
                 dlg.setSingleChoiceItems(versionArray, 0, new DialogInterface.OnClickListener() {
                     @Override

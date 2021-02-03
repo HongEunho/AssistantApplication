@@ -161,6 +161,7 @@ public class SecurityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent7 = new Intent(SecurityActivity.this, KnowledgeActivity.class);
+                intent7.putExtra("department", "정보보호학과");
                 startActivity(intent7);
             }
         });

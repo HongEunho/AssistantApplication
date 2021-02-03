@@ -52,6 +52,9 @@ public class OnlyQuestionActivity extends AppCompatActivity {
     public SimpleDateFormat simpleDate;
     public String formatDate;
     String curName;
+    String dep;
+    String myToken;
+    String tmp_dep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +70,23 @@ public class OnlyQuestionActivity extends AppCompatActivity {
         //현재 로그인 정보
         SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
         String curID = preferences.getString("ID","0");
+
         curName = preferences.getString("Name","0");
+        dep = preferences.getString("Department", "9999");
+        myToken = preferences.getString("Token", null);
 
         a = OnlyQuestionActivity.this;
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
+
+        //현재는 여유롭게 게시글 수 10000개를 최대로 제한해 놓았습니다.
+        //더 많은 데이터가 필요하다면, 페이지네이션 기법을 통해 불러오는 개수를 조정하시면 됩니다.
+        //리사이클러뷰로 제작했으니, 밑의 서버 코드에서 페이지 네이션을 통해 ser+/question/+dep+?page=0&size=5 이런 형식으로 구성하시면 됩니다.
+        //자세한 부분은 sjswbot.site/docs에 설명되어 있습니다.
         jo = new JSONObject[10000];
         department = new String[10000]; content = new String[10000]; time = new String[10000];
         idx = new int[10000];
 
-        new JSONTask().execute(ser+"/question/"+"소프트웨어학과");
-        new JSONTask().execute(ser+"/question/"+"공통 질문");
+        new JSONTask().execute(ser+"/question/"+dep);
 
         final RecyclerView mRecyclerView = findViewById(R.id.onlyquestion_recyclerview);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
@@ -130,6 +140,7 @@ public class OnlyQuestionActivity extends AppCompatActivity {
                 URL url = new URL(urls[0]);
 
                 con = (HttpURLConnection)url.openConnection();
+                con.setRequestProperty("Authorization", myToken);
                 con.connect();
 
                 InputStream stream = con.getInputStream();
@@ -164,9 +175,8 @@ public class OnlyQuestionActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
+            JSONArray ja = jsonParsing(result);
             try {
-                JSONArray ja = new JSONArray(result);
                 size = ja.length();
                 for(int i=0; i<ja.length(); i++)
                 {
@@ -180,9 +190,15 @@ public class OnlyQuestionActivity extends AppCompatActivity {
                 for(int i=0; i<size;i++)
                 {
                     idx[i] = jo[i].getInt("idx");
-                    department[i] = jo[i].getString("department");
+                    tmp_dep = jo[i].getString("department");
+                    if(tmp_dep.equals("11")){
+                        department[i] = "공통 질문";
+                    }
+                    else{
+                        department[i] = "우리학과 질문";
+                    }
                     content[i] = jo[i].getString("content");
-                    time[i] = jo[i].getString("time");
+                    time[i] = jo[i].getString("updatedAt");
                 }
 
             } catch (JSONException e) {
@@ -220,6 +236,7 @@ public class OnlyQuestionActivity extends AppCompatActivity {
                     con.setRequestProperty("Cache-Control", "no-cache");
                     con.setRequestProperty("Content-Type", "application/json");
                     con.setRequestProperty("Accept", "text/html");
+                    con.setRequestProperty("Authorization", myToken);
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.connect();
@@ -270,5 +287,20 @@ public class OnlyQuestionActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
         }
+    }
+    public JSONArray jsonParsing(String json)
+    {
+        JSONObject jo = null;
+        JSONObject resultjo = null;
+        JSONArray rowja = null;
+        try {
+            jo = new JSONObject(json); //전체 반환문 {}
+            resultjo = jo.getJSONObject("result");  //"result" jsonObject
+            rowja = resultjo.getJSONArray("rows");
+            System.out.println("확인용"+rowja);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return rowja;
     }
 }

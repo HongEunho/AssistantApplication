@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    // 해커톤 초기에 만들어놓은 페이지로 현재는 사용하지 않습니다.
+    // 지우셔도 상관 없습니다.
     public static String Server = "https://mfam.site";
 
     private Button computerbtn;
@@ -56,32 +58,26 @@ public class MainActivity extends AppCompatActivity {
             {
                 case R.id.computerbtn:
                     Intent comintent = new Intent(MainActivity.this,ComputerActivity.class);
-
                     startActivity(comintent);
                     break;
                 case R.id.softwarebtn:
                     Intent sofintent = new Intent(MainActivity.this,SoftwareActivity.class);
-
                     startActivity(sofintent);
                     break;
                 case R.id.databtn:
                     Intent dataintent = new Intent(MainActivity.this,DataScienceActivity.class);
-
                     startActivity(dataintent);
                     break;
                 case R.id.securitybtn:
                     Intent secuintent = new Intent(MainActivity.this,SecurityActivity.class);
-
                     startActivity(secuintent);
                     break;
                 case R.id.intellbtn:
-                    Intent intellintent = new Intent(MainActivity.this,IntellActivity.class);
-
+                    Intent intellintent = new Intent(MainActivity.this, UnmannedActivity.class);
                     startActivity(intellintent);
                     break;
                 case R.id.ideabtn:
-                    Intent ideaintent = new Intent(MainActivity.this,IdeaActivity.class);
-
+                    Intent ideaintent = new Intent(MainActivity.this, DesignActivity.class);
                     startActivity(ideaintent);
                     break;
             }

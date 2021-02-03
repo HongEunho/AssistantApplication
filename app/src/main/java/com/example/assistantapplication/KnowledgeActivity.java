@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -67,7 +68,12 @@ public class KnowledgeActivity extends AppCompatActivity {
     public SimpleDateFormat simpleDate;
     public String formatDate;
     String curName;
+    String dep;
+    String depKo;
+    String myToken;
+    String tmp_dep;
 
+    // 질문 추가 및 수정 페이지 입니다.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,15 +89,22 @@ public class KnowledgeActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
         String curID = preferences.getString("ID","0");
         curName = preferences.getString("Name","0");
+        dep = preferences.getString("Department", "9999");
+        myToken = preferences.getString("Token", null);
+
+        Intent intent = getIntent();
+        depKo = intent.getStringExtra("Department");
 
         a = KnowledgeActivity.this;
         final String ser = ((ServerVariable)getApplicationContext()).getSer();
+        // 마찬가지로 여유롭게 10000개로 잡아두어 리사이클러뷰를 사용하였으나
+        // 재구성할 필요가 있으면 페이지네이션을 사용하거나 리사이클러뷰 대신 페이징 방법으로 재구성 하시면 될 것 같습니다. (OnlyQuestionActivity)참고.
         jo = new JSONObject[10000];
         question = new String[10000]; answer = new String[10000]; category1 = new String[10000]; category2 = new String[10000]; category3 = new String[10000];
         category4 = new String[10000]; landingUrl = new String[10000]; imageinfo = new String[10000];
         faqno = new int[10000];
 
-        new JSONTask().execute(ser+"/knowledgePlus");
+        new JSONTask().execute(ser+"/knowledgePlus/list/"+depKo);
 
         final RecyclerView mRecyclerView = findViewById(R.id.knowledge_recyclerview);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
@@ -100,8 +113,7 @@ public class KnowledgeActivity extends AppCompatActivity {
         mArrayList = new ArrayList<>();
 
         mAdapter = new KnowledgeAdapter(mArrayList);
-
-
+        
         mRecyclerView.setAdapter(mAdapter);
         //아이템 클릭 처리
         mAdapter.setOnItemClickListener(new KnowledgeAdapter.OnItemClickListener() {

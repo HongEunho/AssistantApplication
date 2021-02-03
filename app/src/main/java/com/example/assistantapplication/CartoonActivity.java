@@ -152,6 +152,7 @@ public class CartoonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent7 = new Intent(CartoonActivity.this, KnowledgeActivity.class);
+                intent7.putExtra("department", "만화애니메이션텍");
                 startActivity(intent7);
             }
         });

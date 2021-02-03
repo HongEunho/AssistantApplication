@@ -151,6 +151,7 @@ public class ComputerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent7 = new Intent(ComputerActivity.this, KnowledgeActivity.class);
+                intent7.putExtra("department", "컴퓨터공학과");
                 startActivity(intent7);
             }
         });

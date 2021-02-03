@@ -157,6 +157,7 @@ public class DataScienceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent7 = new Intent(DataScienceActivity.this, KnowledgeActivity.class);
+                intent7.putExtra("department", "데이터사이언스학과");
                 startActivity(intent7);
             }
         });

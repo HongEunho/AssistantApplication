@@ -1,7 +1,5 @@
 package com.example.assistantapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -12,18 +10,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.gc.materialdesign.widgets.ProgressDialog;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,37 +76,47 @@ public class LoginActivity extends AppCompatActivity {
         if(autoID != null && autoPw != null)
         {
             System.out.println("진입");
-            if (autodep.equals("1")) {
+            if (autodep.equals("1")) {      //컴퓨터공학과 (Computer)
                 Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("2")) {
+            } else if (autodep.equals("2")) {   //소프트웨어학과 (Software)
                 Intent intent = new Intent(LoginActivity.this, SoftwareActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("3")) {
+            } else if (autodep.equals("3")) {   //정보보호학과(Security)
                 Intent intent = new Intent(LoginActivity.this, SecurityActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("4")) {
+            } else if (autodep.equals("4")) {   //데이터사이언스학과(DataScience)
                 Intent intent = new Intent(LoginActivity.this, DataScienceActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("5")) {
-                Intent intent = new Intent(LoginActivity.this, IntellActivity.class);
+            } else if (autodep.equals("5")) {   //디자인이노베이션(Design)
+                Intent intent = new Intent(LoginActivity.this, DesignActivity.class);
                 startActivity(intent);
                 finish();
-            } else if (autodep.equals("6")) {
-                Intent intent = new Intent(LoginActivity.this, IdeaActivity.class);
-                startActivity(intent);
-                finish();
-            }else if (autodep.equals("7")) {
+            } else if (autodep.equals("6")) {   //만화애니메이션텍(Cartoon)
                 Intent intent = new Intent(LoginActivity.this, CartoonActivity.class);
                 startActivity(intent);
                 finish();
+            }else if (autodep.equals("7")) {    //스마트기기공학전공(Smart)
+                Intent intent = new Intent(LoginActivity.this, SmartActivity.class);
+                startActivity(intent);
+                finish();
             }
-            else if (autodep.equals("8")){
-                Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
+            else if (autodep.equals("8")){      //무인이동체공학전공(Unmanned)
+                Intent intent = new Intent(LoginActivity.this, UnmannedActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else if (autodep.equals("9")){      //인공지능학과(AI)
+                Intent intent = new Intent(LoginActivity.this, AiActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else if(autodep.equals("10")){      //관리자페이지(Manager)
+                Intent intent = new Intent(LoginActivity.this, ManagerActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -252,37 +253,47 @@ public class LoginActivity extends AppCompatActivity {
                 //JSONObject jo2 = jo.optJSONObject("user");
                 //System.out.println("확인"+jo2.toString());
                 if (result != null) {
-                    if (dep.equals("1")) {
+                    if (dep.equals("1")) {          //컴퓨터공학과 (Computer)
                         Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("2")) {
+                    } else if (dep.equals("2")) {   //소프트웨어학과 (Software)
                         Intent intent = new Intent(LoginActivity.this, SoftwareActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("3")) {
+                    } else if (dep.equals("3")) {   //정보보호학과(Security)
                         Intent intent = new Intent(LoginActivity.this, SecurityActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("4")) {
+                    } else if (dep.equals("4")) {   //데이터사이언스학과(DataScience)
                         Intent intent = new Intent(LoginActivity.this, DataScienceActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("5")) {
-                        Intent intent = new Intent(LoginActivity.this, IntellActivity.class);
+                    } else if (dep.equals("5")) {   //디자인이노베이션(Design)
+                        Intent intent = new Intent(LoginActivity.this, DesignActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (dep.equals("6")) {
-                        Intent intent = new Intent(LoginActivity.this, IdeaActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else if (dep.equals("7")) {
+                    } else if (dep.equals("6")) {   //만화애니메이션텍(Cartoon)
                         Intent intent = new Intent(LoginActivity.this, CartoonActivity.class);
                         startActivity(intent);
                         finish();
+                    }else if (dep.equals("7")) {    //스마트기기공학전공(Smart)
+                        Intent intent = new Intent(LoginActivity.this, SmartActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
-                    else if (dep.equals("8")){
-                        Intent intent = new Intent(LoginActivity.this, ComputerActivity.class);
+                    else if (dep.equals("8")){      //무인이동체공학전공(Unmanned)
+                        Intent intent = new Intent(LoginActivity.this, UnmannedActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if (dep.equals("9")){      //인공지능학과(Ai)
+                        Intent intent = new Intent(LoginActivity.this, AiActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if (dep.equals("10")){     //관리자페이지(Manager)
+                        Intent intent = new Intent(LoginActivity.this, ManagerActivity.class);
                         startActivity(intent);
                         finish();
                     }
