@@ -113,7 +113,7 @@ public class KnowledgeActivity extends AppCompatActivity {
         mArrayList = new ArrayList<>();
 
         mAdapter = new KnowledgeAdapter(mArrayList);
-        
+
         mRecyclerView.setAdapter(mAdapter);
         //아이템 클릭 처리
         mAdapter.setOnItemClickListener(new KnowledgeAdapter.OnItemClickListener() {
@@ -214,7 +214,7 @@ public class KnowledgeActivity extends AppCompatActivity {
                         category3E = category3Edit.getText().toString();
                         landingUrlE = landingUrlEdit.getText().toString();
                         imageinfoE = imageInfoUrlEdit.getText().toString();
-                        //없애고 다시 불러오기
+                        //없애고 다시 불러오기 ( 새 질문 삽입 후 초기화 과정 )
                         mArrayList.clear();
                         new JSONTask2().execute(ser+"/knowledgePlus");
                         new JSONTask().execute(ser+"/knowledgePlus");
@@ -271,9 +271,8 @@ public class KnowledgeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
+            JSONArray ja = jsonParsing(result);
             try {
-                JSONArray ja = new JSONArray(result);
                 size = ja.length();
                 for(int i=0; i<ja.length(); i++)
                 {
@@ -540,6 +539,22 @@ public class KnowledgeActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
         }
+    }
+
+    public JSONArray jsonParsing(String json)
+    {
+        JSONObject jo = null;
+        JSONObject resultjo = null;
+        JSONArray rowja = null;
+        try {
+            jo = new JSONObject(json); //전체 반환문 {}
+            resultjo = jo.getJSONObject("result");  //"result" jsonObject
+            rowja = resultjo.getJSONArray("rows");
+            System.out.println("확인용"+rowja);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return rowja;
     }
 
     public interface OnItemClickListener{
