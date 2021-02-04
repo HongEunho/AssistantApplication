@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +34,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button valButton;
     private Button regButton;
     private Button depButton;
+    private Button evalButton;
     private AppCompatEditText idEdit;
     private AppCompatEditText nameEdit;
     private AppCompatEditText passEdit;
@@ -42,7 +44,7 @@ public class SignupActivity extends AppCompatActivity {
 
     int dep;
     Boolean check = false;
-
+    Boolean echeck = false;
     String id;
     String name;
     String password;
@@ -58,6 +60,7 @@ public class SignupActivity extends AppCompatActivity {
         valButton = findViewById(R.id.valButton);
         regButton = findViewById(R.id.regButton);
         depButton = findViewById(R.id.depButton);
+        evalButton = findViewById(R.id.evalButton);
 
         idEdit = (AppCompatEditText)findViewById(R.id.userId2);
         nameEdit = findViewById(R.id.username2);
@@ -85,10 +88,9 @@ public class SignupActivity extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(),"휴대폰 번호를 입력하세요",Toast.LENGTH_SHORT).show();
                 }
-                else if(!str.substring(str.lastIndexOf("@")+1).equals("sejong.ac.kr"))
+                else if(!echeck)
                 {
-                    if(str.equals("")) Toast.makeText(getApplicationContext(),"이메일을 입력하세요",Toast.LENGTH_SHORT).show();
-                    else Toast.makeText(getApplicationContext(),"세종대학교 이메일이 아닙니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "이메일 인증을 진행해주세요", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -101,6 +103,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        dep = 1;
         depButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +116,6 @@ public class SignupActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         depButton.setText(versionArray[which]);
                         dep = which+1;
-                        System.out.println("학과확인"+dep);
                     }
                 });
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -121,6 +123,7 @@ public class SignupActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 });
+                System.out.println("학과확인"+dep);
                 dlg.show();
             }
         });
@@ -136,7 +139,7 @@ public class SignupActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(result == null)
+                if(result == null) // 중복되는 아이디 = null을 반환
                 {
                     AlertDialog.Builder dia = new AlertDialog.Builder(SignupActivity.this);
                     dia.setTitle("중복 확인");
@@ -167,6 +170,38 @@ public class SignupActivity extends AppCompatActivity {
                     dia.show();
                 }
 
+            }
+        });
+
+        evalButton.setOnClickListener(new View.OnClickListener() {
+            String str = emailEdit.getText().toString();
+            String result;
+            @Override
+            public void onClick(View view) {
+                if (!str.substring(str.lastIndexOf("@")+1).equals("sejong.ac.kr")) {
+                    if(str.equals("")) Toast.makeText(getApplicationContext(),"이메일을 입력하세요",Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(getApplicationContext(),"세종대학교 이메일이 아닙니다", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    try {
+                        result = new JSONTask4().execute(ser+"/mail/send").get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if(result != null){
+                        AlertDialog.Builder dia = new AlertDialog.Builder(SignupActivity.this);
+                        View v = LayoutInflater.from(SignupActivity.this).inflate(R.layout.modifydelete_knowledge, null, false);
+
+                        final Button yes_btn = v.findViewById(R.id.yesbtn);
+                        final Button no_btn = v.findViewById(R.id.nobtn);
+                        final EditText codeEdit = v.findViewById(R.id.codeEdit);
+
+                        
+                    }
+                }
             }
         });
 
@@ -265,6 +300,82 @@ public class SignupActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("userid", id);
+
+                HttpURLConnection con = null;
+                BufferedReader reader = null;
+
+                try{
+                    //URL url = new URL("http://192.168.25.16:3000/users");
+                    URL url = new URL(urls[0]);
+                    con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("POST");
+                    con.setRequestProperty("Cache-Control", "no-cache");
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestProperty("Accept", "text/html");
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.connect();
+
+                    OutputStream outStream = con.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream));
+                    writer.write(jsonObject.toString());
+                    writer.flush();
+                    writer.close();
+
+                    InputStream stream = con.getInputStream();
+
+                    reader = new BufferedReader(new InputStreamReader(stream));
+
+                    StringBuffer buffer = new StringBuffer();
+
+                    String line = "";
+                    while((line = reader.readLine()) != null){
+                        buffer.append(line);
+                    }
+
+                    return buffer.toString();
+
+                } catch (MalformedURLException e){
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if(con != null){
+                        con.disconnect();
+                    }
+                    try {
+                        if(reader != null){
+                            reader.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            System.out.println("체크"+result);
+
+            //offEdit.setText(""+officelink);
+            //phoneEdit.setText(""+phonelink);
+        }
+    }
+
+    public class JSONTask4 extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
+                id = idEdit.getText().toString();
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("to", id);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
