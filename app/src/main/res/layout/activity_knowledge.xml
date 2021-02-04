@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:text="질문 목록"
+            android:text="질문답변 목록"
             android:textColor="@color/sejongnavy"
             android:textSize="18sp"
             android:textStyle="bold"
