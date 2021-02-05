@@ -66,6 +66,7 @@
         android:text="답변하지 않은 질문" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/roomBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,7 +117,7 @@
         android:layout_marginRight="50dp"
         app:layout_constraintLeft_toLeftOf="@id/noticeBtn"
         app:layout_constraintRight_toRightOf="@id/noticeBtn"
-        app:layout_constraintTop_toBottomOf="@id/knowledgeBtn"
+        app:layout_constraintTop_toBottomOf="@id/datamodifyBtn"
         android:background="@drawable/buttonround"
         android:textColor="#FFFFFF"
         android:text="자주묻는질문 TOP3" />
@@ -134,6 +135,20 @@
         android:background="@drawable/buttonround"
         android:textColor="#FFFFFF"
         android:text="질문 추가 및 수정" />
+
+    <Button
+        android:id="@+id/datamodifyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintLeft_toLeftOf="@id/FAQBtn"
+        app:layout_constraintRight_toRightOf="@id/FAQBtn"
+        app:layout_constraintTop_toBottomOf="@id/knowledgeBtn"
+        android:background="@drawable/buttonround"
+        android:textColor="#FFFFFF"
+        android:text="데이터 수정 요청" />
 
 
 

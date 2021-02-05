@@ -4,6 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -41,6 +43,7 @@ public class SignupActivity extends AppCompatActivity {
     private AppCompatEditText passChkEdit;
     private AppCompatEditText phoneNumEdit;
     private AppCompatEditText emailEdit;
+    private ProgressDialog pd;
 
     int dep;
     Boolean check = false;
@@ -50,6 +53,8 @@ public class SignupActivity extends AppCompatActivity {
     String password;
     String phoneNum;
     String email;
+    String emailCode;
+    String emailstr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,12 +179,18 @@ public class SignupActivity extends AppCompatActivity {
         });
 
         evalButton.setOnClickListener(new View.OnClickListener() {
-            String str = emailEdit.getText().toString();
             String result;
+            String codeResult;
             @Override
             public void onClick(View view) {
-                if (!str.substring(str.lastIndexOf("@")+1).equals("sejong.ac.kr")) {
-                    if(str.equals("")) Toast.makeText(getApplicationContext(),"이메일을 입력하세요",Toast.LENGTH_SHORT).show();
+                /*pd = new ProgressDialog(SignupActivity.this);
+                pd.setIndeterminate(true);
+                pd.setCancelable(false);
+                pd.show();
+                pd.setContentView(R.layout.custom_progress);*/
+                emailstr = emailEdit.getText().toString();
+                if (!emailstr.substring(emailstr.lastIndexOf("@")+1).equals("sejong.ac.kr")) {
+                    if(emailstr.equals("")) Toast.makeText(getApplicationContext(),"이메일을 입력하세요",Toast.LENGTH_SHORT).show();
                     else Toast.makeText(getApplicationContext(),"세종대학교 이메일이 아닙니다", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -192,14 +203,44 @@ public class SignupActivity extends AppCompatActivity {
                     }
 
                     if(result != null){
-                        AlertDialog.Builder dia = new AlertDialog.Builder(SignupActivity.this);
-                        View v = LayoutInflater.from(SignupActivity.this).inflate(R.layout.modifydelete_knowledge, null, false);
+                        final Dialog builder = new Dialog(SignupActivity.this);
+                        builder.setContentView(R.layout.emailcheck);
+                        builder.setTitle("입력하신 이메일에서 인증번호를 확인 해주세요");
+                        builder.show();
 
-                        final Button yes_btn = v.findViewById(R.id.yesbtn);
-                        final Button no_btn = v.findViewById(R.id.nobtn);
-                        final EditText codeEdit = v.findViewById(R.id.codeEdit);
+                        final Button yes_btn = (Button)builder.findViewById(R.id.yesbtn);
+                        final Button no_btn = (Button)builder.findViewById(R.id.nobtn);
+                        final EditText codeEdit = (EditText)builder.findViewById(R.id.codeEdit);
 
-                        
+                        yes_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                emailCode = codeEdit.getText().toString();
+                                try {
+                                    codeResult = new JSONTask5().execute(ser+"/mail/verify").get();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                if (codeResult == null){
+                                    Toast.makeText(getApplicationContext(), "인증번호가 올바르지 않습니다.",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    evalButton.setTextColor(Color.parseColor("#47C83E"));
+                                    Toast.makeText(getApplicationContext(), "인증 되었습니다", Toast.LENGTH_SHORT).show();
+                                    echeck = true;
+                                }
+                                builder.dismiss();
+                            }
+                        });
+                        no_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                builder.dismiss();
+                            }
+                        });
                     }
                 }
             }
@@ -372,10 +413,83 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... urls) {
             try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("to", emailstr);
+
+                HttpURLConnection con = null;
+                BufferedReader reader = null;
+
+                try{
+                    //URL url = new URL("http://192.168.25.16:3000/users");
+                    URL url = new URL(urls[0]);
+                    con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("POST");
+                    con.setRequestProperty("Cache-Control", "no-cache");
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestProperty("Accept", "text/html");
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.connect();
+
+                    OutputStream outStream = con.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream));
+                    writer.write(jsonObject.toString());
+                    writer.flush();
+                    writer.close();
+
+                    InputStream stream = con.getInputStream();
+
+                    reader = new BufferedReader(new InputStreamReader(stream));
+
+                    StringBuffer buffer = new StringBuffer();
+
+                    String line = "";
+                    while((line = reader.readLine()) != null){
+                        buffer.append(line);
+                    }
+
+                    return buffer.toString();
+
+                } catch (MalformedURLException e){
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if(con != null){
+                        con.disconnect();
+                    }
+                    try {
+                        if(reader != null){
+                            reader.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+        }
+
+    }
+
+    public class JSONTask5 extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
                 id = idEdit.getText().toString();
 
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("to", id);
+                jsonObject.accumulate("email", emailstr);
+                jsonObject.accumulate("authNumber", emailCode);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;

@@ -297,7 +297,6 @@ public class OnlyQuestionActivity extends AppCompatActivity {
             jo = new JSONObject(json); //전체 반환문 {}
             resultjo = jo.getJSONObject("result");  //"result" jsonObject
             rowja = resultjo.getJSONArray("rows");
-            System.out.println("확인용"+rowja);
         } catch (JSONException e) {
             e.printStackTrace();
         }

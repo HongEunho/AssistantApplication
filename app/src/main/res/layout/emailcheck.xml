@@ -1,46 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/sejongbackground"
+    >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:gravity="center"
+        android:text="인증번호를 입력하세요"
+        android:textColor="#000000"
+        />
 
     <EditText
         android:id="@+id/codeEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="인증번호"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        android:hint="인증번호"
+        android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/yesbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:layout_marginTop="20dp"
-        android:text="예"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/comment_item_shape"
-        android:backgroundTint="@color/sejongColor"
-        app:layout_constraintTop_toBottomOf="@id/codeEdit"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/nobtn"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/nobtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="아니오"
-        android:layout_marginTop="20dp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/comment_item_shape"
-        android:backgroundTint="@color/sejongColor"
-        app:layout_constraintTop_toBottomOf="@id/codeEdit"
-        app:layout_constraintLeft_toRightOf="@id/yesbtn"
-        app:layout_constraintRight_toRightOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/yesbtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/sejongpink"
+            android:text="확인"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/nobtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/sejongpink"
+            android:text="취소"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

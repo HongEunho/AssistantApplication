@@ -51,6 +51,7 @@ public class StatusActivity extends AppCompatActivity {
     String curName;
     String myToken;
     String myDep;
+    String depKo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,8 @@ public class StatusActivity extends AppCompatActivity {
         curName = preferences.getString("Name","0");
         myDep = preferences.getString("Department", "9999");
         myToken = preferences.getString("Token",null);
+        depKo = preferences.getString("depKo",null);
+
         System.out.println("현재 내 토큰"+myToken);
 
         comment = findViewById(R.id.comment);
@@ -188,7 +191,7 @@ public class StatusActivity extends AppCompatActivity {
             else if(staint == 2) { workBtn.setChecked(false); notworkBtn.setChecked(false); longnotBtn.setChecked(true);      }
             else { workBtn.setChecked(true); notworkBtn.setChecked(false); longnotBtn.setChecked(false);      }
 
-            majorEdit.setText(dep);
+            majorEdit.setText(depKo);
             commentEdit.setText(comment);
             positionEdit.setText(position);
             phoneNumEdit.setText(phoneNum);
