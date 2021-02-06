@@ -26,7 +26,7 @@ public class AiActivity extends AppCompatActivity {
     //인공지능학과 액티비티입니다.
     private Button staBtn;
     private Button onlyQaBtn;
-    private Button roomBtn;
+    private Button modifyBtn;
     private Button officeBtn;
     private Button noticeBtn;
     private Button FAQBtn;
@@ -58,7 +58,7 @@ public class AiActivity extends AppCompatActivity {
 
         System.out.println("확인함"+curID);
         staBtn = findViewById(R.id.staBtn);
-        roomBtn = findViewById(R.id.roomBtn);
+        modifyBtn = findViewById(R.id.datamodifyBtn);
         officeBtn = findViewById(R.id.officeBtn);
         noticeBtn = findViewById(R.id.noticeBtn);
         FAQBtn = findViewById(R.id.FAQBtn);
@@ -118,10 +118,10 @@ public class AiActivity extends AppCompatActivity {
             }
         });
 
-        roomBtn.setOnClickListener(new View.OnClickListener() {
+        modifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(AiActivity.this,ComputerTimeActivity.class);
+                Intent intent3 = new Intent(AiActivity.this,DatamodifyActivity.class);
                 startActivity(intent3);
             }
         });

@@ -26,7 +26,7 @@ public class DataScienceActivity extends AppCompatActivity {
     //데이터사이언스학과 액티비티 입니다.
     private Button staBtn;
     private Button onlyQaBtn;
-    private Button roomBtn;
+    private Button modifyBtn;
     private Button officeBtn;
     private Button FAQBtn;
     private Button noticeBtn;
@@ -58,7 +58,7 @@ public class DataScienceActivity extends AppCompatActivity {
         System.out.println("확인함"+curID);
         staBtn = findViewById(R.id.staBtn);
         onlyQaBtn = findViewById(R.id.onlyQaBtn);
-        roomBtn = findViewById(R.id.roomBtn);
+        modifyBtn = findViewById(R.id.datamodifyBtn);
         officeBtn = findViewById(R.id.officeBtn);
         noticeBtn = findViewById(R.id.noticeBtn);
         FAQBtn = findViewById(R.id.FAQBtn);
@@ -124,10 +124,10 @@ public class DataScienceActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-        roomBtn.setOnClickListener(new View.OnClickListener() {
+        modifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(DataScienceActivity.this,ComputerTimeActivity.class);
+                Intent intent3 = new Intent(DataScienceActivity.this,DatamodifyActivity.class);
                 startActivity(intent3);
             }
         });

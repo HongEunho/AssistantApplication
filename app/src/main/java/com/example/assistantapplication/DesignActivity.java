@@ -27,7 +27,7 @@ public class DesignActivity extends AppCompatActivity {
     //디자인 이노베이션 액티비티 입니다.
     private Button staBtn;
     private Button onlyQaBtn;
-    private Button roomBtn;
+    private Button modifyBtn;
     private Button officeBtn;
     private Button FAQBtn;
     private Button noticeBtn;
@@ -60,7 +60,7 @@ public class DesignActivity extends AppCompatActivity {
         System.out.println("확인함"+curID);
         staBtn = findViewById(R.id.staBtn);
         onlyQaBtn = findViewById(R.id.onlyQaBtn);
-        roomBtn = findViewById(R.id.roomBtn);
+        modifyBtn = findViewById(R.id.datamodifyBtn);
         officeBtn = findViewById(R.id.officeBtn);
         FAQBtn = findViewById(R.id.FAQBtn);
         noticeBtn = findViewById(R.id.noticeBtn);
@@ -125,10 +125,10 @@ public class DesignActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-        roomBtn.setOnClickListener(new View.OnClickListener() {
+        modifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(DesignActivity.this,ComputerTimeActivity.class);
+                Intent intent3 = new Intent(DesignActivity.this,DatamodifyActivity.class);
                 startActivity(intent3);
             }
         });

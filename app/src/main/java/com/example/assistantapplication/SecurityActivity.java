@@ -27,7 +27,7 @@ public class SecurityActivity extends AppCompatActivity {
     //정보보호
     private Button staBtn;
     private Button onlyQaBtn;
-    private Button roomBtn;
+    private Button modifyBtn;
     private Button officeBtn;
     private Button FAQBtn;
     private Button noticeBtn;
@@ -63,7 +63,7 @@ public class SecurityActivity extends AppCompatActivity {
 
         staBtn = findViewById(R.id.staBtn);
         onlyQaBtn = findViewById(R.id.onlyQaBtn);
-        roomBtn = findViewById(R.id.roomBtn);
+        modifyBtn = findViewById(R.id.datamodifyBtn);
         officeBtn = findViewById(R.id.officeBtn);
         FAQBtn = findViewById(R.id.FAQBtn);
         noticeBtn = findViewById(R.id.noticeBtn);
@@ -128,10 +128,10 @@ public class SecurityActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-        roomBtn.setOnClickListener(new View.OnClickListener() {
+        modifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(SecurityActivity.this,ComputerTimeActivity.class);
+                Intent intent3 = new Intent(SecurityActivity.this,DatamodifyActivity.class);
                 startActivity(intent3);
             }
         });
