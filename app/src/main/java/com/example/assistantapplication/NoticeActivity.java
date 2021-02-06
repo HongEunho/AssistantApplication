@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,22 +34,56 @@ public class NoticeActivity extends AppCompatActivity {
 
     private EditText linkEdit;
     private Button button;
+    private TextInputLayout inputLayout;
+    private EditText contentEdit;
+    Activity a;
+
     String link2;
+    String content2;
+    String department;
+    String dep;
+    String myToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
 
-        final Activity a = NoticeActivity.this;
+        //현재 로그인 정보
+        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+        dep = preferences.getString("Department", "9999");
+        myToken = preferences.getString("Token", null);
+
+        a = NoticeActivity.this;
+        final String ser = ((ServerVariable)getApplicationContext()).getSer();
+
         setTitle("학과공지 관리 시스템");
         linkEdit = findViewById(R.id.linkEdit2);
         button = findViewById(R.id.button);
+        inputLayout = findViewById(R.id.contentEditLayout);
 
-        final String ser = ((ServerVariable)getApplicationContext()).getSer();
+        inputLayout.setCounterEnabled(true);
+        inputLayout.setCounterMaxLength(200);
+        contentEdit = inputLayout.getEditText();
+        contentEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        Intent intent = getIntent();
-        final String dep = intent.getStringExtra("department");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() > 200)
+                    inputLayout.setError("50글자 이상을 넘기면 안됩니다");
+                else
+                    inputLayout.setError(null);
+            }
+        });
 
         new JSONTask().execute(ser+"/notice/"+dep);
         button.setOnClickListener(new View.OnClickListener() {
@@ -101,11 +140,22 @@ public class NoticeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            JSONObject jo = jsonParsing2(result);
+            JSONObject jo = jsonParsing(result);
             String link="";
+            String content="";
+            String createdAt="";
+            String updatedAt="";
+            String department="";
+            String username="";
 
             try {
                 link += jo.getString("link");
+                content += jo.getString("content");
+                createdAt += jo.getString("createdAt");
+                updatedAt += jo.getString("updatedAt");
+                department += jo.getString("department");
+                JSONObject userjo = jo.getJSONObject("User");
+                username += userjo.getString("username");
 
                 if(link.equals("null"))
                     link="수정 중입니다.";
@@ -113,6 +163,7 @@ public class NoticeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             linkEdit.setText(link);
+            contentEdit.setText(content);
         }
 
     }
@@ -122,9 +173,11 @@ public class NoticeActivity extends AppCompatActivity {
         protected String doInBackground(String... urls) {
             try {
                 link2 = linkEdit.getText().toString();
+                content2 = contentEdit.getText().toString();
 
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("link", link2);
+                jsonObject.accumulate("content", content2);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -137,6 +190,7 @@ public class NoticeActivity extends AppCompatActivity {
                     con.setRequestProperty("Cache-Control", "no-cache");
                     con.setRequestProperty("Content-Type", "application/json");
                     con.setRequestProperty("Accept", "text/html");
+                    con.setRequestProperty("Authorization", myToken);
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.connect();
@@ -186,18 +240,20 @@ public class NoticeActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             linkEdit.setText(""+link2);
+            contentEdit.setText(""+content2);
         }
     }
 
-    public JSONObject jsonParsing2(String json)
+    public JSONObject jsonParsing(String json)
     {
         JSONObject jo = null;
+        JSONObject resultjo = null;
         try {
-            JSONArray ja = new JSONArray(json);
-            jo = ja.getJSONObject(0);
+            jo = new JSONObject(json);
+            resultjo = jo.getJSONObject("result");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jo;
+        return resultjo;
     }
 }

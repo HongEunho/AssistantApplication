@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.assistantapplication" >
+    package="com.example.assistantapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true" >
-        <activity android:name=".OnlyQuestionActivity" >
-        </activity>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".DatamodifyActivity"></activity>
+        <activity android:name=".OnlyQuestionActivity"></activity>
         <activity android:name=".CartoonCurriActivity" />
         <activity android:name=".CartoonActivity" />
         <activity android:name=".KnowledgeActivity" />
@@ -25,7 +25,7 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +37,7 @@
             android:name=".MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true"
-            android:stopWithTask="false" >
+            android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
