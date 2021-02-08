@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="대분류">
+        <item>일반공지</item>
+        <item>입학</item>
+        <item>학사</item>
+        <item>국제교류</item>
+        <item>졸업</item>
+        <item>행사</item>
+        <item>취업</item>
+        <item>장학</item>
+    </string-array>
+</resources>
