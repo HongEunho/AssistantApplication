@@ -217,7 +217,7 @@ public class KnowledgeActivity extends AppCompatActivity {
                         //없애고 다시 불러오기 ( 새 질문 삽입 후 초기화 과정 )
                         mArrayList.clear();
                         new JSONTask2().execute(ser+"/knowledgePlus");
-                        new JSONTask().execute(ser+"/knowledgePlus");
+                        new JSONTask().execute(ser+"/knowledgePlus/list/"+depKo);
                         ((ServerVariable)getApplicationContext()).insertSuccess(a);
                         dialog.dismiss();
                     }
@@ -337,6 +337,7 @@ public class KnowledgeActivity extends AppCompatActivity {
                     con.setRequestProperty("Cache-Control", "no-cache");
                     con.setRequestProperty("Content-Type", "application/json");
                     con.setRequestProperty("Accept", "text/html");
+                    con.setRequestProperty("Authorization", myToken);
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.connect();
@@ -417,6 +418,7 @@ public class KnowledgeActivity extends AppCompatActivity {
                     con.setRequestProperty("Cache-Control", "no-cache");
                     con.setRequestProperty("Content-Type", "application/json");
                     con.setRequestProperty("Accept", "text/html");
+                    con.setRequestProperty("Authorization", myToken);
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.connect();
@@ -489,6 +491,7 @@ public class KnowledgeActivity extends AppCompatActivity {
                     con.setRequestProperty("Cache-Control", "no-cache");
                     con.setRequestProperty("Content-Type", "application/json");
                     con.setRequestProperty("Accept", "text/html");
+                    con.setRequestProperty("Authorization", myToken);
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.connect();

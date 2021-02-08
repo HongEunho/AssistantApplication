@@ -32,10 +32,9 @@ public class SoftwareActivity extends AppCompatActivity {
     private Button FAQBtn;
     private Button noticeBtn;
     private Button knowledgeBtn;
-    private Switch pushSwitch;
     private long backKeyPressedTime = 0;
     private Toast toast;
-    ImageButton menu_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +42,8 @@ public class SoftwareActivity extends AppCompatActivity {
         setTitle("소프트웨어학과 조교관리 시스템");
 
         final Activity a = SoftwareActivity.this;
+
+        ((ServerVariable)getApplicationContext()).unsubscribePush("software");
 
         FirebaseMessaging.getInstance().subscribeToTopic("software")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -62,53 +63,7 @@ public class SoftwareActivity extends AppCompatActivity {
         FAQBtn = findViewById(R.id.FAQBtn);
         noticeBtn = findViewById(R.id.noticeBtn);
         knowledgeBtn = findViewById(R.id.knowledgeBtn);
-        pushSwitch = findViewById(R.id.pushSwitch);
-        pushSwitch.setChecked(true);
-        menu_btn = findViewById(R.id.menu_btn);
 
-        menu_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("클릭");
-                PopupMenu popup = new PopupMenu(getApplicationContext(), v);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.popupmenu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if(item.getTitle().toString().equals("로그아웃"))
-                        {
-                            AlertDialog.Builder dlg = new AlertDialog.Builder(SoftwareActivity.this);
-                            dlg.setMessage("로그아웃 하시겠습니까?");
-                            dlg.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = preferences.edit();
-                                    editor.putString("ID", null);
-                                    editor.putString("Password", null);
-                                    editor.putString("Department","9999");
-                                    editor.putString("Name",null);
-                                    editor.commit();
-                                    Intent intent = new Intent(SoftwareActivity.this, LoginActivity.class);
-                                    intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                }
-                            });
-                            dlg.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-                            dlg.show();
-                        }
-                        return false;
-                    }
-                });
-                popup.show();
-            }
-        });
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,17 +116,6 @@ public class SoftwareActivity extends AppCompatActivity {
             }
         });
 
-        pushSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    FirebaseMessaging.getInstance().subscribeToTopic("software");
-                }
-                else{
-                    FirebaseMessaging.getInstance().unsubscribeFromTopic("software");
-                }
-            }
-        });
     }
     @Override
     public void onBackPressed(){

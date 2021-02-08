@@ -13,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DatamodifyActivity"></activity>
-        <activity android:name=".OnlyQuestionActivity"></activity>
+        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".DatamodifyActivity" />
+        <activity android:name=".OnlyQuestionActivity" />
         <activity android:name=".CartoonCurriActivity" />
         <activity android:name=".CartoonActivity" />
         <activity android:name=".KnowledgeActivity" />

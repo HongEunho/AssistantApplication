@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     String id;
     String password;
     String dep;
+    String pushdep;
     String name;
     String mytoken;
 
@@ -329,36 +330,47 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("Department",dep);
         editor.putString("Name",name);
         editor.putString("Token",mytoken);
+
         switch(dep){
             case "1":
                 editor.putString("depKo","컴퓨터공학과");
+                editor.putString("pushdep","computer");
                 break;
             case "2":
                 editor.putString("depKo","소프트웨어학과");
+                editor.putString("pushdep","software");
                 break;
             case "3":
                 editor.putString("depKo","정보보호학과");
+                editor.putString("pushdep","information");
                 break;
             case "4":
                 editor.putString("depKo","데이터사이언스학과");
+                editor.putString("pushdep","datascience");
                 break;
             case "5":
                 editor.putString("depKo","디자인이노베이션");
+                editor.putString("pushdep","design");
                 break;
             case "6":
                 editor.putString("depKo","만화애니메이션텍");
+                editor.putString("pushdep","cartoon");
                 break;
             case "7":
                 editor.putString("depKo","스마트기기공학전공");
+                editor.putString("pushdep","smart");
                 break;
             case "8":
                 editor.putString("depKo","무인이동체공학전공");
+                editor.putString("pushdep","imc");
                 break;
             case "9":
                 editor.putString("depKo","인공지능학과");
+                editor.putString("pushdep","ai");
                 break;
             case "10":
                 editor.putString("depKo","관리자");
+                editor.putString("pushdep","computer");
             default:
                 break;
         }

@@ -33,12 +33,13 @@ public class SmartActivity extends AppCompatActivity {
     private Button knowledgeBtn;
     private long backKeyPressedTime = 0;
     private Toast toast;
-    private Switch pushSwitch;
-    ImageButton menu_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer);
+
+        ((ServerVariable)getApplicationContext()).unsubscribePush("smart");
 
         SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
         String curID = preferences.getString("ID","0");
@@ -64,52 +65,7 @@ public class SmartActivity extends AppCompatActivity {
         FAQBtn = findViewById(R.id.FAQBtn);
         knowledgeBtn = findViewById(R.id.knowledgeBtn);
         onlyQaBtn = findViewById(R.id.onlyQaBtn);
-        pushSwitch = findViewById(R.id.pushSwitch);
-        pushSwitch.setChecked(true);
-        menu_btn = findViewById(R.id.menu_btn);
-        menu_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("클릭");
-                PopupMenu popup = new PopupMenu(getApplicationContext(), v);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.popupmenu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if(item.getTitle().toString().equals("로그아웃"))
-                        {
-                            AlertDialog.Builder dlg = new AlertDialog.Builder(SmartActivity.this);
-                            dlg.setMessage("로그아웃 하시겠습니까?");
-                            dlg.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = preferences.edit();
-                                    editor.putString("ID", null);
-                                    editor.putString("Password", null);
-                                    editor.putString("Department","9999");
-                                    editor.putString("Name",null);
-                                    editor.commit();
-                                    Intent intent = new Intent(SmartActivity.this, LoginActivity.class);
-                                    intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                }
-                            });
-                            dlg.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            });
-                            dlg.show();
-                        }
-                        return false;
-                    }
-                });
-                popup.show();
-            }
-        });
         staBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,18 +116,6 @@ public class SmartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent2 = new Intent(SmartActivity.this,OnlyQuestionActivity.class);
                 startActivity(intent2);
-            }
-        });
-
-        pushSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    FirebaseMessaging.getInstance().subscribeToTopic("Smart");
-                }
-                else{
-                    FirebaseMessaging.getInstance().unsubscribeFromTopic("Smart");
-                }
             }
         });
 

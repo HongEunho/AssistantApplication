@@ -3,11 +3,13 @@ package com.example.assistantapplication;
 import android.app.Activity;
 import android.app.Application;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import org.aviran.cookiebar2.CookieBar;
 
 public class ServerVariable extends Application {
     public String server;
-
+    public String alldep[] = {"public", "computer", "software", "datascience", "im", "information", "design", "cartoon", "smart", "imc", "ai"};
     public String getSer(){
         return "https://sjswbot.site";
     }
@@ -50,5 +52,12 @@ public class ServerVariable extends Application {
                 .setBackgroundColor(R.color.welcomeColor)
                 .setMessage("삭제 되었습니다.")
                 .show();
+    }
+
+    public void unsubscribePush(String mydep){
+        for(String s:alldep){
+            if(!s.equals(mydep))
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(s);
+        }
     }
 }
