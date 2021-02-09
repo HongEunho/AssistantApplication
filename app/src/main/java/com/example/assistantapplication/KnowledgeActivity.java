@@ -21,8 +21,10 @@ import android.text.method.Touch;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -59,10 +61,9 @@ public class KnowledgeActivity extends AppCompatActivity {
     private String[] category3;
     private String[] category4;
     private String[] landingUrl;
-    private String[] imageinfo;
     private int[] faqno;
     private int faqno2;
-    private String questionE, answerE, category1E, category2E, category3E, category4E, landingUrlE, imageinfoE;
+    private String questionE, answerE, category1E, category2E, category3E, category4E, landingUrlE;
     public long now;
     public Date mDate;
     public SimpleDateFormat simpleDate;
@@ -101,7 +102,7 @@ public class KnowledgeActivity extends AppCompatActivity {
         // 재구성할 필요가 있으면 페이지네이션을 사용하거나 리사이클러뷰 대신 페이징 방법으로 재구성 하시면 될 것 같습니다. (OnlyQuestionActivity)참고.
         jo = new JSONObject[10000];
         question = new String[10000]; answer = new String[10000]; category1 = new String[10000]; category2 = new String[10000]; category3 = new String[10000];
-        category4 = new String[10000]; landingUrl = new String[10000]; imageinfo = new String[10000];
+        category4 = new String[10000]; landingUrl = new String[10000];
         faqno = new int[10000];
 
         new JSONTask().execute(ser+"/knowledgePlus/list/"+depKo);
@@ -134,7 +135,6 @@ public class KnowledgeActivity extends AppCompatActivity {
                 final AppCompatEditText category2Edit = view.findViewById(R.id.category2Edit2);
                 final AppCompatEditText category3Edit = view.findViewById(R.id.category3Edit2);
                 final AppCompatEditText landingUrlEdit = view.findViewById(R.id.landingUrlEdit2);
-                final AppCompatEditText imageInfoUrlEdit = view.findViewById(R.id.imageInfoEdit2);
 
                 questionEdit.setText(item.getQuestion());
                 answerEdit.setText(item.getAnswer());
@@ -142,8 +142,6 @@ public class KnowledgeActivity extends AppCompatActivity {
                 category2Edit.setText(item.getCategory2());
                 category3Edit.setText(item.getCategory3());
                 landingUrlEdit.setText(item.getLandingUrl());
-                imageInfoUrlEdit.setText(item.getImageInfo());
-
 
                 builder.setView(view);
 
@@ -158,9 +156,8 @@ public class KnowledgeActivity extends AppCompatActivity {
                         category2E = category2Edit.getText().toString();
                         category3E = category3Edit.getText().toString();
                         landingUrlE = landingUrlEdit.getText().toString();
-                        imageinfoE = imageInfoUrlEdit.getText().toString();
 
-                        Knowledge data = new Knowledge(questionE,answerE,category1E,category2E,category3E,landingUrlE,imageinfoE);
+                        Knowledge data = new Knowledge(questionE,answerE,category1E,category2E,category3E,landingUrlE);
                         mArrayList.set(pos,data);
                         mAdapter.notifyDataSetChanged();
                         new JSONTask3().execute(ser+"/knowledgePlus/"+Integer.toString(faqno2));
@@ -196,11 +193,33 @@ public class KnowledgeActivity extends AppCompatActivity {
                 final Button btn_modify = view.findViewById(R.id.modify_btn);
                 final AppCompatEditText questionEdit = view.findViewById(R.id.questionEdit2);
                 final AppCompatEditText answerEdit = view.findViewById(R.id.answerEdit2);
-                final AppCompatEditText category1Edit = view.findViewById(R.id.category1Edit2);
-                final AppCompatEditText category2Edit = view.findViewById(R.id.category2Edit2);
                 final AppCompatEditText category3Edit = view.findViewById(R.id.category3Edit2);
                 final AppCompatEditText landingUrlEdit = view.findViewById(R.id.landingUrlEdit2);
-                final AppCompatEditText imageInfoUrlEdit = view.findViewById(R.id.imageInfoEdit2);
+
+                final Spinner depSpinner = view.findViewById(R.id.depSpinner);
+                final Spinner secondSpinner = view.findViewById(R.id.secondSpinner);
+                depSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        category1E = adapterView.getItemAtPosition(i).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+                secondSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        category2E = adapterView.getItemAtPosition(i).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
 
                 final AlertDialog dialog = builder.create();
                 //삽입확인
@@ -209,11 +228,8 @@ public class KnowledgeActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         questionE = questionEdit.getText().toString();
                         answerE = answerEdit.getText().toString();
-                        category1E = category1Edit.getText().toString();
-                        category2E = category2Edit.getText().toString();
                         category3E = category3Edit.getText().toString();
                         landingUrlE = landingUrlEdit.getText().toString();
-                        imageinfoE = imageInfoUrlEdit.getText().toString();
                         //없애고 다시 불러오기 ( 새 질문 삽입 후 초기화 과정 )
                         mArrayList.clear();
                         new JSONTask2().execute(ser+"/knowledgePlus");
@@ -293,7 +309,6 @@ public class KnowledgeActivity extends AppCompatActivity {
                     category3[i] = jo[i].getString("category3");
                     category4[i] = jo[i].getString("category4");
                     landingUrl[i] = jo[i].getString("landingUrl");
-                    imageinfo[i] = jo[i].getString("imageinfo");
                 }
 
             } catch (JSONException e) {
@@ -302,7 +317,7 @@ public class KnowledgeActivity extends AppCompatActivity {
             //recycler view에 탑재
             for(int i=0; i<size; i++)
             {
-                Knowledge data = new Knowledge(faqno[i],question[i],answer[i],category1[i],category2[i], category3[i],landingUrl[i],imageinfo[i]);
+                Knowledge data = new Knowledge(faqno[i],question[i],answer[i],category1[i],category2[i], category3[i],landingUrl[i]);
                 mArrayList.add(data);
             }
             mAdapter.notifyDataSetChanged();
@@ -322,7 +337,6 @@ public class KnowledgeActivity extends AppCompatActivity {
                 jsonObject0.accumulate("category2", category2E);
                 jsonObject0.accumulate("category3", category3E);
                 jsonObject0.accumulate("landingUrl", landingUrlE);
-                jsonObject0.accumulate("imageinfo", imageinfoE);
                 jsonObject0.accumulate("time",formatDate);
                 jsonObject0.accumulate("modifier",curName);
 
@@ -403,7 +417,6 @@ public class KnowledgeActivity extends AppCompatActivity {
                 jsonObject0.accumulate("category2", category2E);
                 jsonObject0.accumulate("category3", category3E);
                 jsonObject0.accumulate("landingUrl", landingUrlE);
-                jsonObject0.accumulate("imageinfo", imageinfoE);
                 jsonObject0.accumulate("time",formatDate);
                 jsonObject0.accumulate("modifier",curName);
 

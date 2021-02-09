@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string-array name="학과">
+        <item>컴퓨터공학과</item>
+        <item>소프트웨어학과</item>
+        <item>정보보호학과</item>
+        <item>데이터사이언스학과</item>
+        <item>디자인이노베이션</item>
+        <item>만화애니메이션텍</item>
+        <item>스마트기기공학전공</item>
+        <item>무인이동체공학전공</item>
+        <item>인공지능학과</item>
+        <item>공통</item>
+    </string-array>
+</resources>

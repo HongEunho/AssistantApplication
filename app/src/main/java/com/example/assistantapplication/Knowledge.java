@@ -34,7 +34,7 @@ public class Knowledge {
     public String getAnswer() {   return answer;    }
     public void setAnswer(String answer) {    this.answer = answer;   }
 
-    public Knowledge(String question, String answer, String category1, String category2, String category3, String landingUrl, String imageInfo) {
+    public Knowledge(String question, String answer, String category1, String category2, String category3, String landingUrl) {
         this.question = question;
         this.answer = answer;
         this.category1=category1;
@@ -44,7 +44,7 @@ public class Knowledge {
         this.imageInfo=imageInfo;
     }
 
-    public Knowledge(int faqno, String question, String answer, String category1, String category2, String category3, String landingUrl, String imageInfo) {
+    public Knowledge(int faqno, String question, String answer, String category1, String category2, String category3, String landingUrl) {
         this.question = question;
         this.answer = answer;
         this.category1=category1;
